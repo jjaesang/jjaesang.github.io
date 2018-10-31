@@ -10,11 +10,11 @@ exclude:
 
 # Site settings
 title: 데이터 이야기
-subtitle: "A simple yet classy theme for your Jekyll website or blog"
+subtitle: "공부하고 경험한 것들 차근차근 정리하자 :)"
 email: jaesang2443@naver.com
 name: Jaesang Lim
 description: >
-  A simple yet classy theme for your Jekyll website or blog.
+  공부하고 경험한 것들 차근차근 정리하자 :)
 # Base URL of site (i.e. /blog). It should always start with a slash,
 # and never end with a slash. Set it to a blank value if hosting at the
 # root of your server.
