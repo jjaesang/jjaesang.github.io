@@ -5,7 +5,7 @@ date: 2018-05-30 13:05:12
 categories: Spark Streaming
 author : Jaesang Lim
 tag: Spark Streaming
-cover: "/assets/spark_log.png"
+cover: "/assets/spark.png"
 ---
 ### Spark Streaming Configuration
 
@@ -15,6 +15,7 @@ cover: "/assets/spark_log.png"
 
 - 사실상, Yarn 과 Spark 모두 long-running 서비스를 위해 디자인 된 것이 아님
 
+</hr>
 #### 1. Fault Tolerance를 위한 Configuration
 > - 부분 실패가 있더라도, 계속 작업할 수 있게 !! 
 > 
@@ -48,6 +49,8 @@ cover: "/assets/spark_log.png"
 > - 장기 실행 작업의 경우 작업을 실패하기 전에 어플리케이션의 최대 실패 횟수를 늘림
 > - default : 4
 
+</hr>
+
 #### 2. Performance를 위한 Configuration
 
 ##### 2_1. spark.speculation=true
@@ -58,6 +61,7 @@ cover: "/assets/spark_log.png"
 - ** 개인적으로, speculation=true로 했을 때 큰 장점이 없어서 False로 처리했음 **
 
 
+</hr>
 #### 3. Graceful Stop 
 
 - 지금 처리하려고 들고 있는 데이터 까지 다 처리하고 작업을 종료하자
@@ -159,6 +163,8 @@ cover: "/assets/spark_log.png"
    }
 ```
 
+</hr>
+
 #### 4. YARN Configuration
 
 - spark.yarn.driver.memoryOverhead=512  ( driver-memory < 5GB )
@@ -166,6 +172,8 @@ cover: "/assets/spark_log.png"
 - default : min( 384, executorMemory * 0.10 ) 
 - 10G / 5G 보다 작을 시 , 늘리자
 
+
+</hr>
 #### 5. Spark Delay Scheduling
 
 - spark.locality.wait = 10ms
@@ -178,6 +186,8 @@ cover: "/assets/spark_log.png"
 - - 10ms로 줄이면 처리 기반 3배 단축 
 - Kafka Streaming일 때는  큰 차이를 못 느낄 수 있음 
 
+
+</hr>
 
 #### 6. BackPressure
 
@@ -205,6 +215,23 @@ cover: "/assets/spark_log.png"
 - 처음 배치는 큰 사이즈로 들어올 수 있기 떄문에 이 것을 Smooth 하게 처리하는 Config 있음
 	- spark.streaming.backpressure.initalRate 조정 
 	- spark.streaming.kafka.maxRatePerPartition 조정 ( Kafka ) 
+
+
+</hr>
+
+#### 6. CMS GC
+
+- GC 관련 일시 중지를 일관성있게 유지하려면 CMS GC를 사용하는 것이 좋음
+- CMS GC는 시스템의 전반적인 처리 처리량을 감소시키는 것는 경향이 있음 
+	- Background Thread가 지속적으로 GC 대상을 Masking 하기 때문이라고 생각힘 
+- 하지만 보다 일관된 배치 처리 시간을 달성하기 위해 사용하는 것이 좋음
+
+이렇게 주면 끝~
+```
+	....
+    --conf spark.driver.extraJavaOptions=-XX:+UseConcMarkSweepGC \
+    --conf spark.executor.extraJavaOptions=-XX:+UseConcMarkSweepGC \
+```
 
 
 

@@ -5,7 +5,7 @@ date: 2018-05-30 13:05:12
 categories: Spark Streaming
 author : Jaesang Lim
 tag: Spark Streaming
-cover: "/assets/spark_log.png"
+cover: "/assets/spark.png"
 ---
 
 ### Spark Streaming With Kafka Direct API
@@ -14,17 +14,11 @@ cover: "/assets/spark_log.png"
 ### 로직 설명 
 `
  KafkaUtils.createDirectStream[String, String](
-`
-`
       sparkStreamContext,
-     `
-     `
       PreferConsistent,
+      Subscribe[String, String](ESTAT_TOPIC, kafkaParams) )
       `
-      `Subscribe[String, String](ESTAT_TOPIC, kafkaParams) )
-      `
-      
-      
+
 #### 1. createDirectStream
 - Return Type : InputDStream[ConsumerRecord[K, V]] using DirectKafkaInputDStream
 `new DirectKafkaInputDStream[K, V](ssc, locationStrategy, consumerStrategy, perPartitionConfig)`
