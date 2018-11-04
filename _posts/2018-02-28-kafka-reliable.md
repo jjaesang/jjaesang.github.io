@@ -4,7 +4,7 @@ title:  "Reliable Data Delivery In Kafka"
 date: 2018-02-28 13:05:12
 categories: Kafka
 author : Jaesang Lim
-tag: Spark
+tag: Kafka
 cover: "/assets/kafka_log.png"
 ---
 

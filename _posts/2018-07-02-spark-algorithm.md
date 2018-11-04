@@ -276,7 +276,9 @@ case (k,v) => (k+ r.nextInt(n),v)
 #### 10. Secondary sort Pattern
 - Problem
 	- 키 별로 grouping하고 sorting할 때 OOM
-`rdd.reduceByKey(_+_).sort(_._2,false) // inefficient for large groups`
+```
+rdd.reduceByKey(_+_).sort(_._2,false) // inefficient for large groups
+```
 - Solution
 	- Composition key
 		- 그룹화할 요소와 정렬할 요소 포함
@@ -314,8 +316,9 @@ groupBy.name.hashcode() % numParitions
 - 지금 예제에서는 implicit에서 sortBy를 published로 바꾼 것임 
 - Keyby 는 map의 특별한 case로 Composite key 생성한 것을 키로 하고 m을 value로 만듦 
 
-`implicit val sortBy: Ordering[SortKey] = Ordering.by(m => m.published`
+
 ```
+implicit val sortBy: Ordering[SortKey] = Ordering.by(m => m.published
 val pais = mentions.rdd.keyBy(m => SortKey(m.name,m.published))
 pairs.repartiionAndSortWithinParitions(new GroupingParitioner(n))
 ```

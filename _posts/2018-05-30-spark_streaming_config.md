@@ -15,7 +15,7 @@ cover: "/assets/spark.png"
 
 - 사실상, Yarn 과 Spark 모두 long-running 서비스를 위해 디자인 된 것이 아님
 
-</hr>
+<hr/>
 #### 1. Fault Tolerance를 위한 Configuration
 > - 부분 실패가 있더라도, 계속 작업할 수 있게 !! 
 > 
@@ -49,7 +49,7 @@ cover: "/assets/spark.png"
 > - 장기 실행 작업의 경우 작업을 실패하기 전에 어플리케이션의 최대 실패 횟수를 늘림
 > - default : 4
 
-</hr>
+<hr/>
 
 #### 2. Performance를 위한 Configuration
 
@@ -61,7 +61,7 @@ cover: "/assets/spark.png"
 - ** 개인적으로, speculation=true로 했을 때 큰 장점이 없어서 False로 처리했음 **
 
 
-</hr>
+<hr/>
 #### 3. Graceful Stop 
 
 - 지금 처리하려고 들고 있는 데이터 까지 다 처리하고 작업을 종료하자
@@ -163,7 +163,7 @@ cover: "/assets/spark.png"
    }
 ```
 
-</hr>
+<hr/>
 
 #### 4. YARN Configuration
 
@@ -217,7 +217,7 @@ cover: "/assets/spark.png"
 	- spark.streaming.kafka.maxRatePerPartition 조정 ( Kafka ) 
 
 
-</hr>
+<hr/>
 
 #### 6. CMS GC
 

@@ -179,15 +179,15 @@ cover: "/assets/kafka_log.png"
 			- 마지막 압축 이후 쓰여진 messages
 <center><img src="https://user-images.githubusercontent.com/12586821/47949500-964ce180-df87-11e8-9e96-bae1e51ea1ea.png"/></center>
 
-	- Log Compaction Details
-		1. 전체 partition에서 dirty message의 비율이 가장 큰 partition을 선택, 압축 수행
-		2. dirty message들에 대해 offset map 작성
-			- map entry는 key에 16byte hash, message에 8byte offset으로 구성
-			- segment 압축에 오직 24byte per entry 사용
-		3. clean message를 오래된 순서로 읽으며, offset map과 비교/검사
-			- clean message의 key가 map에 없다면, 그 message이후로 들어온 같은 key의 message가 없다는 것이므로 message를 replacement segment에 복사
-			- 반대로, key가 map에 있다면, 이후에 해당 key에 신규 message가 입력됐다는 것이므로 그 message는 무시
-		4. message 복사가 모두 끝나면 원본 segment와 replace segment를 swap하고 다음 segment로 이동
+- Log Compaction Details
+    1. 전체 partition에서 dirty message의 비율이 가장 큰 partition을 선택, 압축 수행
+    2. dirty message들에 대해 offset map 작성
+        - map entry는 key에 16byte hash, message에 8byte offset으로 구성
+        - segment 압축에 오직 24byte per entry 사용
+    3. clean message를 오래된 순서로 읽으며, offset map과 비교/검사
+        - clean message의 key가 map에 없다면, 그 message이후로 들어온 같은 key의 message가 없다는 것이므로 message를 replacement segment에 복사
+        - 반대로, key가 map에 있다면, 이후에 해당 key에 신규 message가 입력됐다는 것이므로 그 message는 무시
+    4. message 복사가 모두 끝나면 원본 segment와 replace segment를 swap하고 다음 segment로 이동
 
 
 
