@@ -4,14 +4,12 @@ title: About
 permalink: /about/
 ---
 
-<img src="{{ site.baseurl }}/assets/profile-placeholder.gif" title="Profile Picture" class="profile">
 
-Centrarium is a custom theme for Jekyll, made by [Ben Centra][bencentra] for his own blog. He'd be humbled if you liked it enough to use it as well! Installation and configuration instructions can be found in the [GitHub repository](https://github.com/bencentra/centrarium).
+- 만 2년차된 개발자 임재상입니다~
+- 데이터 처리 및 분석하는 업무를 하고 있으며, 이를 위해 공부한 내용을 차근차근 정리하고자 합니다.
+- 틀린 내용, 부족한 내용이 있을지 모르지만, 공부한 것을 기록해두어 제 지식으로 만들고자 합니다 :)
 
-This page is a good place to write about yourself, your project, your product, or whatever it is your site is for. You can replace the image above, or you can get rid of it entirely. 
+- 관심분야는 Hadoop, Spark, Kafka 같은 하둡 기반 데이터처리 프레임워크이며,
+- 최근에는 머신러닝 및 딥러닝에 대해 알아가고자 공부하고 있습니다 :)
 
-You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/). And you can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
-
-[centrarium]: https://github.com/bencentra/centrarium
-[bencentra]: http://bencentra.com
-[jekyll]: https://github.com/jekyll/jekyll
+- 감사합니다. 
