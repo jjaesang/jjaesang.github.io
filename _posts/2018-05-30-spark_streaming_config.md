@@ -98,18 +98,16 @@ cover: "/assets/spark.png"
 - maxAppAttempts를 1로 줄일 수 는 있는데.. 그렇게 Graceful Shutdown이 Driver의 재시작보다 중요한지 고민해야하암
 - 그러면.. 또 어느 노드에서 Driver가 떴는지 확인해서 죽여함.. 
 
+- yarn application -kill <applicationId> 추천하지 않음
 
-**yarn application -kill <applicationId> 추천하지 않음**
-
-
-- SIGTERM을 Container에게 전달하지만, 즉각적으로 SIGKILL이 먼저도착한다 .
-- SIGTERM을 보내고 일정 시간 후에 SIGKILL를 보냄 
-- SIGETEM과 SIGKILL의 시간 차이는 yarn.nodemanager.sleep-delay-before-sigkill.ms ( default 250ms )
-- 이 설정값을 바꿀 수는 있지만 1분으로 늘려도 작동하지 않음
-- 즉각적으로 죽는 것을 볼 수 있음.. 정상 로그도 출력되지 않음
-```
-17/02/02 12:12:27 ERROR yarn.ApplicationMaster: RECEIVED SIGNAL 15: SIGTERM
-17/02/02 12:12:27 INFO streaming.StreamingContext: Invoking stop(stopGracefully=true) from shutdown hook
+	- SIGTERM을 Container에게 전달하지만, 즉각적으로 SIGKILL이 먼저도착한다 .
+	- SIGTERM을 보내고 일정 시간 후에 SIGKILL를 보냄 
+	- SIGETEM과 SIGKILL의 시간 차이는 yarn.nodemanager.sleep-delay-before-sigkill.ms ( default 250ms )
+	- 이 설정값을 바꿀 수는 있지만 1분으로 늘려도 작동하지 않음
+	- 즉각적으로 죽는 것을 볼 수 있음.. 정상 로그도 출력되지 않음
+	```
+	17/02/02 12:12:27 ERROR yarn.ApplicationMaster: RECEIVED SIGNAL 15: SIGTERM
+	17/02/02 12:12:27 INFO streaming.StreamingContext: Invoking stop(stopGracefully=true) from shutdown hook
 ```
 
 
