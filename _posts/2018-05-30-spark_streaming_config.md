@@ -99,7 +99,9 @@ cover: "/assets/spark.png"
 - 그러면.. 또 어느 노드에서 Driver가 떴는지 확인해서 죽여함.. 
 
 
-- **yarn application -kill <applicationId> 추천하지 않음**
+**yarn application -kill <applicationId> 추천하지 않음**
+
+
 - SIGTERM을 Container에게 전달하지만, 즉각적으로 SIGKILL이 먼저도착한다 .
 - SIGTERM을 보내고 일정 시간 후에 SIGKILL를 보냄 
 - SIGETEM과 SIGKILL의 시간 차이는 yarn.nodemanager.sleep-delay-before-sigkill.ms ( default 250ms )
