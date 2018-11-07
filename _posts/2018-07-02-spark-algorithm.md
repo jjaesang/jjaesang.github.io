@@ -5,7 +5,7 @@ date: 2018-07-02 13:05:12
 categories: Spark
 author : Jaesang Lim
 tag: Spark
-cover: "/assets/spark_log.png"
+cover: "/assets/spark.png"
 ---
 
 ### Mastering Spark in Scalable Algorithms
