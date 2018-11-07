@@ -58,7 +58,7 @@ cover: "/assets/spark.png"
 - Streaming 작업은 처리 시간을 안정적이고 예측 가능하게 유지
 - Stable 하게 유지하는 것이 중요 ( Processing Time < Batch Interval )
 - 많은 Job을 처리하는 Cluster 환경에서는 Speculative execution이 Batch processing에 도움
-- ** 개인적으로, speculation=true로 했을 때 큰 장점이 없어서 False로 처리했음 **
+- **개인적으로, speculation=true로 했을 때 큰 장점이 없어서 False로 처리했음**
 
 
 <hr/>
@@ -99,7 +99,7 @@ cover: "/assets/spark.png"
 - 그러면.. 또 어느 노드에서 Driver가 떴는지 확인해서 죽여함.. 
 
 
--** yarn application -kill <applicationId> 추천하지 않음**
+- **yarn application -kill <applicationId> 추천하지 않음**
 - SIGTERM을 Container에게 전달하지만, 즉각적으로 SIGKILL이 먼저도착한다 .
 - SIGTERM을 보내고 일정 시간 후에 SIGKILL를 보냄 
 - SIGETEM과 SIGKILL의 시간 차이는 yarn.nodemanager.sleep-delay-before-sigkill.ms ( default 250ms )
@@ -173,7 +173,7 @@ cover: "/assets/spark.png"
 - 10G / 5G 보다 작을 시 , 늘리자
 
 
-</hr>
+<hr/>
 #### 5. Spark Delay Scheduling
 
 - spark.locality.wait = 10ms
@@ -187,11 +187,10 @@ cover: "/assets/spark.png"
 - Kafka Streaming일 때는  큰 차이를 못 느낄 수 있음 
 
 
-</hr>
+<hr/>
 
 #### 6. BackPressure
 
-[concept 관련 링크](http://www.reactive-streams.org/ )
 - queue에 계속 쌓이면 Delay + OOM 가능 
 - backPressure를 활성화하여 , Drvier가 현재 Scheduling Delay 와 Processing Delay를 모니터링하여
   Receiver의 maximum rate를 조절함 
