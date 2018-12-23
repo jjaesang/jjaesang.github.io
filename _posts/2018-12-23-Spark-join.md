@@ -4,8 +4,8 @@ title:  "Spark Join에 대한 정리"
 date: 2018-12-23 13:05:12
 categories: Spark
 author : Jaesang Lim
-tag: YARN
-cover: "/assets/spark_log.png"
+tag: Spark
+cover: "/assets/spark.png"
 ---
 
 ### Spark Join
@@ -62,7 +62,8 @@ val sparkStatus = Seq(
 - Dataframe이나 테이블에 존재하는 키를 평가하고, True로 평가되는 로우만 결합
 
 ```
-val joinExpression = person.col("graduate_program") === graduateProgram.col("id")
+val joinExpression = person.col("graduate_program")
+	=== graduateProgram.col("id")
 
 val innerjoinResult = person.join(graduateProgram, joinExpression)
 innerJoinResult.show()
@@ -81,9 +82,10 @@ innerJoinResult.show()
 - 일치하는 로우가 없다면 null
 
 ```
-val joinExpression = person.col("graduate_program") === graduateProgram.col("id")
+val joinExpression = person.col("graduate_program") 
+	=== graduateProgram.col("id")
 
-val joinType = "outer" or "left_outer" OR "right_outer"
+val joinType = "outer" OR "left_outer" OR "right_outer"
 
 val outerJoinResult = person.join(graduateProgram, joinExpression, joinType)
 innerJoinResult.show()
@@ -108,7 +110,7 @@ innerJoinResult.show()
 - 배열 값이 포함되는가?
 ```
 person.withColumnRenamed("id","persionId")
-	.join(sparkStatus, exprt("array_cotains(spark_status,id)"))
+	.join(sparkStatus, expr("array_cotains(spark_status,id)"))
     .show()
 ```
 
@@ -122,12 +124,15 @@ person.withColumnRenamed("id","persionId")
 
 
 ```
-val gradProgramDupe = graduateProgram.withColumnRenamed("id", "graduate_program")
+val gradProgramDupe = graduateProgram
+	.withColumnRenamed("id", "graduate_program")
 
-val joinExpr = gradProgramDupe.col("graduate_program") === person.col(
-  "graduate_program")
+val joinExpr = gradProgramDupe.col("graduate_program")
+	=== person.col("graduate_program")
   
-person.join(gradProgramDupe, joinExpr).select("graduate_program").show()
+person.join(gradProgramDupe, joinExpr)
+	.select("graduate_program")
+    .show()
 // 오류 발생 - Reference 'graduate_program' is ambigous ... 
 
 ```
@@ -141,18 +146,21 @@ person.join(gradProgramDupe, joinExpr).select("graduate_program").show()
 
 ```
 // 다른 조인 표현식 사용 예제 코드
-val joinExpr = gradProgramDupe.col("graduate_program") === person.col(
-  "graduate_program")
+val joinExpr = gradProgramDupe.col("graduate_program") 
+	=== person.col("graduate_program")
   
 person.join(gradProgramDupe, joinExpr).show()
 // 위의 joinExpr 대신 문자열로 넣자
-person.join(gradProgramDupe, "graduate_program").select("graduate_program").show()
+person.join(gradProgramDupe, "graduate_program")
+	.select("graduate_program")
+    .show()
 ```
 
 ```
 // 조인 후 컬럼 제거 예제 코드
-person.join(gradProgramDupe, joinExpr).drop(person.col("graduate_program"))
-.select("graudate_program").show()
+person.join(gradProgramDupe, joinExpr)
+	.drop(person.col("graduate_program"))
+	.select("graudate_program").show()
 
 ```
 
