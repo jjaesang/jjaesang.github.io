@@ -96,10 +96,11 @@ cover: "/assets/spark.png"
 5. 기본 위치 목록 (HDFS을 위함)
 
 --- 
-1. partitions()
-- 분산 데이터세트의 부분들을 구성하는 파티션 객체들의 배열을 리턴
-- 파티셔너를 가진 RDD 라면 각 파티션의 인덱스는 그 파티션의 데이터가 가진 키에 getPartition()을 호출했을 때의 결과와 같으ㅁ
-```
+- partitions()
+  - 분산 데이터세트의 부분들을 구성하는 파티션 객체들의 배열을 리턴
+  - 파티셔너를 가진 RDD 라면 각 파티션의 인덱스는 그 파티션의 데이터가 가진 키에 getPartition()을 호출했을 때의 결과와 같음
+
+  ```
   /**
    * Get the array of partitions of this RDD, taking into account whether the
    * RDD is checkpointed or not.
@@ -117,62 +118,64 @@ cover: "/assets/spark.png"
     }
   }
   
-```
+  ```
 
-2. iterator(p,parentlter)
-- 각각의 부모 파티션을 순회하는 Iterator가 주어지면, 파티션 p의 구성요소들을 재 계산한다
-- 이 함수는 RDD에서 각각의 파티션을 계산하기 위해 호출
-- 사용자가 직적 호출 X , 액션이 수행할 때, 스파크에 의해 호출되는 용도
 
-```
-  /**
-   * Internal method to this RDD; will read from cache if applicable, or otherwise compute it.
-   * This should ''not'' be called by users directly, but is available for implementors of custom
-   * subclasses of RDD.
-   */
-  final def iterator(split: Partition, context: TaskContext): Iterator[T] = {
-    if (storageLevel != StorageLevel.NONE) {
-      getOrCompute(split, context)
-    } else {
-      computeOrReadCheckpoint(split, context)
-    }
-  }
-```
-
-3. dependencies()
-- 종속성 객체의 목록을 리턴
-- 종속성 정보는 스케줄러가 현재의 RDD가 어떤식으로 다른 RDD에 종속될지에 알려준다
-  1. Narrow dependency
-    >  - 부모의 파티션 중에서 한개나 작은 부분 집합만 필요로 할 때
-  2. Wide dependenct
-    > - 파티션이 반드시 부모의 모든 데이터를 재배치하고 연산해야만 되는 경우 
-
-```
- /**
-   * Get the list of dependencies of this RDD, taking into account whether the
-   * RDD is checkpointed or not.
-   */
-  final def dependencies: Seq[Dependency[_]] = {
-    checkpointRDD.map(r => List(new OneToOneDependency(r))).getOrElse {
-      if (dependencies_ == null) {
-        dependencies_ = getDependencies
+- iterator(p,parentlter)
+  - 각각의 부모 파티션을 순회하는 Iterator가 주어지면, 파티션 p의 구성요소들을 재 계산한다
+  - 이 함수는 RDD에서 각각의 파티션을 계산하기 위해 호출
+  - 사용자가 직적 호출 X , 액션이 수행할 때, 스파크에 의해 호출되는 용도
+  
+  ```
+    /**
+     * Internal method to this RDD; will read from cache if applicable, or otherwise compute it.
+     * This should ''not'' be called by users directly, but is available for implementors of custom
+     * subclasses of RDD.
+     */
+    final def iterator(split: Partition, context: TaskContext): Iterator[T] = {
+      if (storageLevel != StorageLevel.NONE) {
+        getOrCompute(split, context)
+      } else {
+        computeOrReadCheckpoint(split, context)
       }
-      dependencies_
     }
-  }
-```
 
-4. paritionor()
-- hashPartitioner같이 element와 partition 사이에 연관되는 함수를 갖고 있는 RDD라면 Option타입으로 partitioner 객체 리턴
-```
-  /** Optionally overridden by subclasses to specify how they are partitioned. */
-  @transient val partitioner: Option[Partitioner] = None
-```
+  ```
+
+- dependencies()
+  - 종속성 객체의 목록을 리턴
+  - 종속성 정보는 스케줄러가 현재의 RDD가 어떤식으로 다른 RDD에 종속될지에 알려준다
+  - Narrow dependency
+      >  - 부모의 파티션 중에서 한개나 작은 부분 집합만 필요로 할 때
+  - Wide dependenct
+      > - 파티션이 반드시 부모의 모든 데이터를 재배치하고 연산해야만 되는 경우 
+
+  ```
+   /**
+     * Get the list of dependencies of this RDD, taking into account whether the
+     * RDD is checkpointed or not.
+     */
+    final def dependencies: Seq[Dependency[_]] = {
+      checkpointRDD.map(r => List(new OneToOneDependency(r))).getOrElse {
+        if (dependencies_ == null) {
+          dependencies_ = getDependencies
+        }
+        dependencies_
+      }
+    }
+  ```
+
+- paritionor()
+  - hashPartitioner같이 element와 partition 사이에 연관되는 함수를 갖고 있는 RDD라면 Option타입으로 partitioner 객체 리턴
+  ```
+    /** Optionally overridden by subclasses to specify how they are partitioned. */
+    @transient val partitioner: Option[Partitioner] = None
+  ```
  
-5. preferredLocation(p)
-- 파티션 p의 데이터 지역성에 대한 정보를 리턴
-- p가 저장된 각 노드의 정보를 문자열로 표한한 Seq를 리턴
-- HDFS 경우, preferredLocation 결과의 각 문자열이 파티션이 저장된 노드의 하둡 이름이 된다?
-```
-  protected def getPreferredLocations(split: Partition): Seq[String] = Nil
-```
+- preferredLocation(p)
+  - 파티션 p의 데이터 지역성에 대한 정보를 리턴
+  - p가 저장된 각 노드의 정보를 문자열로 표한한 Seq를 리턴
+  - HDFS 경우, preferredLocation 결과의 각 문자열이 파티션이 저장된 노드의 하둡 이름이 된다?
+  ```
+    protected def getPreferredLocations(split: Partition): Seq[String] = Nil
+  ```
