@@ -79,7 +79,6 @@ cover: "/assets/spark.png"
 
 ### 지연 평가와 디버깅 - 어려움;; ( stackTrace 자체가 Action에 찍힘 )
 - 지연평가는 오직 액션을 수행한 시점에서만 문제가 발생하게 되므로, 디버깅에 중요한 영향을 가져온다.
-> e.g) wordcount 실행 시, 
 
 ---
 
