@@ -1,8 +1,8 @@
 ---
 layout: post
-title:  "스파크 병렬 연산 모델 : RDD "
+title:  "[HP-Spark] 스파크 병렬 연산 모델 : RDD Part 1"
 date: 2019-02-08 18:05:12
-categories: Spark
+categories: High-Performance-Spark 
 author : Jaesang Lim
 tag: Spark
 cover: "/assets/spark.png"
