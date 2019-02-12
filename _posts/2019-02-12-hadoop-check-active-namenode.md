@@ -39,7 +39,10 @@ else
 fi
 ```
 
+--- 
+
 - Active NameNode인 경우의 Response
+
 ```
 [jaesang@test02 ~]$  curl -I "http://master01.xxx.xxx.xxx.com:50070/webhdfs/v1/user/jaesang?op=GETFILESTATUS"
 
@@ -73,11 +76,11 @@ Server: Jetty(6.1.26)
 ```
 
 - 이 결과를 봤을 때, HTTP Response Code만 중요하기 때문에 Response Code만 추출하는 bash를 추가한다 !
+
 ```
 NN_CHECK_URL='curl -I "http://master01.xxx.xxx.xxx.com:50070/webhdfs/v1/${hdfs_home_path}?op=GETFILESTATUS"'
 NN_RESPONSE=`${NN_CHECK_URL} 2>/dev/null | head -n 1 | awk -F" " '{print $2}'`
-echo ${NN_RESPONSE}
-# 200 만 추출될 것 !
+echo ${NN_RESPONSE} # 200 
 ```
 
 - 끝!
