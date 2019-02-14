@@ -57,6 +57,9 @@ cover: "/assets/spark.png"
  - 기본 : 마지막 입력 데이터를 처리한 직후에 신규 입력 데이터를 조회해 최단 시간내 새로운 처리 결과를 만들어냄
  - File Sink 경우, 매우 작은 크기의 파일이 다량으로 생성될 수 있음
  - 그래서 **처리 시간_고정된 주기로만 신규 데이터 탐색** 기반 Trigger 지원 ( 이건 모, DStream Batch_interval과 동일하다)
+```scala
+  df.writeStream.trigger(ProcessingTime("10 seconds"))
+```
 
 #### 5) OutputMode ( 출력모드 )
  - Sink를 정의하기 위해, **데이터를 출력하는 방법**에 대한 정의
@@ -89,16 +92,16 @@ cover: "/assets/spark.png"
     > - open 메소드가 아닌 다른 부분에서 초기화할 경우, 드라이버에서 초기화되는 오류가 발생할 수 있음
   - 임의의 코드이기 때문에, 내고장성을 고려하여 사용해야함
   
-  ##### 1) open
-   - 처리하려는 로우를 식별하는 고유값 처리하는 2가지 파라미터 있음
-   - Trigger 마다 호출
-   - Boolean Type 
-  ##### 2) process
-   - open에서 true일 때, process 메소드는 데이터의 레커드 마다 호출
-   - 데이터를 처리하거나 저장하는 용도
-  ##### 3) close
-   - open 메소드가 호출되면, 장애가 발생하지 않는 한 close 메서드도 호출 ( open의 true/false와 상관없음 )
-   - 만약 스트림 처리 도중에 오류가 발생하면 close에서 그 오류를 받음
+##### 1) open
+ - 처리하려는 로우를 식별하는 고유값 처리하는 2가지 파라미터 있음
+ - Trigger 마다 호출
+ - Boolean Type 
+##### 2) process
+ - open에서 true일 때, process 메소드는 데이터의 레커드 마다 호출
+ - 데이터를 처리하거나 저장하는 용도
+##### 3) close
+ - open 메소드가 호출되면, 장애가 발생하지 않는 한 close 메서드도 호출 ( open의 true/false와 상관없음 )
+ - 만약 스트림 처리 도중에 오류가 발생하면 close에서 그 오류를 받음
     
 ```scala
      import org.apache.spark.sql.ForeachWriter
@@ -117,72 +120,5 @@ cover: "/assets/spark.png"
     
 ```
 
---- 
-### Trigger 관련 DataWriter 부분
-
- 
-```scala
-    private var trigger: Trigger = ProcessingTime(0L)
-   
-   /**
-    * Set the trigger for the stream query. The default value is `ProcessingTime(0)` and it will run
-    * the query as fast as possible.
-    *
-    * Scala Example:
-    * {{{
-    *   df.writeStream.trigger(ProcessingTime("10 seconds"))
-    *
-    *   import scala.concurrent.duration._
-    *   df.writeStream.trigger(ProcessingTime(10.seconds))
-    * }}}
-    *
-    * Java Example:
-    * {{{
-    *   df.writeStream().trigger(ProcessingTime.create("10 seconds"))
-    *
-    *   import java.util.concurrent.TimeUnit
-    *   df.writeStream().trigger(ProcessingTime.create(10, TimeUnit.SECONDS))
-    * }}}
-    *
-    * @since 2.0.0
-    */
-   
-   def trigger(trigger: Trigger): DataStreamWriter[T] = {
-     this.trigger = trigger
-     this
-   }
- ```
-   
-
---- 
-### OutputMode 관련 DataWriter 부분
-
-```scala
-  /**
-   * Specifies how data of a streaming DataFrame/Dataset is written to a streaming sink.
-   *   - `append`:   only the new rows in the streaming DataFrame/Dataset will be written to
-   *                 the sink
-   *   - `complete`: all the rows in the streaming DataFrame/Dataset will be written to the sink
-   *                 every time these is some updates
-   *   - `update`:   only the rows that were updated in the streaming DataFrame/Dataset will
-   *                 be written to the sink every time there are some updates. If the query doesn't
-   *                 contain aggregations, it will be equivalent to `append` mode.
-   * @since 2.0.0
-   */
-  def outputMode(outputMode: String): DataStreamWriter[T] = {
-    this.outputMode = outputMode.toLowerCase match {
-      case "append" =>
-        OutputMode.Append
-      case "complete" =>
-        OutputMode.Complete
-      case "update" =>
-        OutputMode.Update
-      case _ =>
-        throw new IllegalArgumentException(s"Unknown output mode $outputMode. " +
-          "Accepted output modes are 'append', 'complete', 'update'")
-    }
-    this
-  }
-```
 
 
