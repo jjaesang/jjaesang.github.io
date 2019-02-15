@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Streaming] Spark structured Streaming : OutputMode 편"
+title:  "[Streaming] Spark structured Streaming : OutputMode"
 date: 2019-02-15 18:15:12
 categories: Spark-Structured-Streaming 
 author : Jaesang Lim
@@ -36,4 +36,4 @@ cover: "/assets/spark.png"
 ![update](https://user-images.githubusercontent.com/12586821/52842952-fc7b0000-3143-11e9-9e04-9c19c30e06bc.png)
 
 - 최종 결과 비교 
-![aaaaa](https://user-images.githubusercontent.com/12586821/52844414-dce5d680-3147-11e9-9512-501b20cb2805.PNG)
+![aab](https://user-images.githubusercontent.com/12586821/52844797-c4c28700-3148-11e9-9ca0-dffd792cac25.PNG)
