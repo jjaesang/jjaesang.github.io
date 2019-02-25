@@ -10,7 +10,7 @@ cover: "/assets/instacode.png"
 
 ## NIFI 
 
-- Apache NiFi supports powerful and scalable directed graphs of data routing, transformation, and system mediation logic. Some of the high-level capabilities and objectives of Apache NiFi include: 
+- Apache NiFi supports powerful and scalable directed graphs of data routing, transformation, and system mediation logic.  
 - Apache NiFi는 강력하고 확장 가능한 데이터 라우팅, 변환 및 시스템 중재 로직의 방향 그래프를 지원
 
 ### Why NIFI? 
@@ -19,9 +19,9 @@ cover: "/assets/instacode.png"
 - 드래그 앤 드롭, 스톱/스타트 버튼, 에러 view, 통계량, health 
 
 `
-호튼웍스 왈,
-Hortonworks DataFlow는 수많은 소스에서 데이터를 수집하고 전송하는 것과 관련된 실시간 과제를 해결하는 통합 플랫폼이며 Apache NiFi로 지원되는 자동화된 데이터의 출처를 통해 실시간 흐름에 대한 대화형 명령 및 제어를 제공합니다.
-Hortonworks DataFlow는 모든 유형의 데이터 흐름을 쉽게 자동화하고 모든 종류의 데이터 흐름을 안전하게 보호하는 한편 모든 데이터 및 모든 소스에서 파생된 실시간 비즈니스 인사이트와 작업을 수집, 수행 및 조정하기 위해 설계되었습니다.
+- 호튼웍스 왈,
+  - Hortonworks DataFlow는 수많은 소스에서 데이터를 수집하고 전송하는 것과 관련된 실시간 과제를 해결하는 통합 플랫폼이며 Apache NiFi로 지원되는 자동화된 데이터의 출처를 통해 실시간 흐름에 대한 대화형 명령 및 제어를 제공합니다.
+  - Hortonworks DataFlow는 모든 유형의 데이터 흐름을 쉽게 자동화하고 모든 종류의 데이터 흐름을 안전하게 보호하는 한편 모든 데이터 및 모든 소스에서 파생된 실시간 비즈니스 인사이트와 작업을 수집, 수행 및 조정하기 위해 설계되었습니다.
 `
 
 
