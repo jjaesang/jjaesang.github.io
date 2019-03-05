@@ -26,7 +26,9 @@ cover: "/assets/instacode.png"
 ---
 
 #### 문제가 되었던 코드
+
 - 사실상, count를 증분해서 _id를 설정하면 되지만, 나는 멀티 프로세스 환경에서 실행해야하고, 그렇게 되면 문서수의 count는 중복될 가능성이 매우크다.
+
 ```java
     BulkRequest request = new BulkRequest();
     request.timeout(TimeValue.timeValueMinutes(2));
@@ -39,11 +41,12 @@ cover: "/assets/instacode.png"
         doc_id++;
     }
     BulkResponse bulkResponse = client.bulk(request);
-
 ```
 
----
+
 #### count 대신 UUID 사용
+
+
 ```java
     BulkRequest request = new BulkRequest();
     request.timeout(TimeValue.timeValueMinutes(2));
@@ -54,5 +57,6 @@ cover: "/assets/instacode.png"
                 .source(json, XContentType.JSON));
     }
     BulkResponse bulkResponse = client.bulk(request);
-
 ```
+
+
