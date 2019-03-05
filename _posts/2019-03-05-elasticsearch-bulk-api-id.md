@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "[ELASTIC SEARCH] bulk api 사용시 고유id값 설정 "
-date: 2019-03-05 12:15:12
+date: 2019-03-05 12:24:12
 categories: etc 
 author : Jaesang Lim
 tag: etc
