@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Nifi] Nifi을 이용한 Database 연동  "
+title:  "[Nifi] Nifi을 이용한 Database 연동 "
 date: 2019-03-06 23:15:12
 categories: Nifi 
 author : Jaesang Lim
@@ -10,7 +10,7 @@ cover: "/assets/instacode.png"
 
 - Nifi 내에서 처리된 데이터를 Kafka, Hdfs, Local FileSystem, DB , Elasticsearch 등 다양한 sink에 넣어야하는 케이스가 있음
 - Elasticsearch 는 PutElasticsearchHttpRecord 프로세스 하나로 충분히 가능함
-- 하지만 DB에 대해서는 Controller Services를 이용하여 DB Connection Pool를 관리하고, 이와 관련된 프로세서도 몇 개 있음
+- 하지만 DB에 대해서는 Controller Service를 이용하여 DB Connection Pool를 관리하고, 이와 관련된 프로세서도 몇 개 있음
 - 그 중 3개에 대한 프로세서를 정리하고자함.
 
 ### Database Connection Pooling Service
@@ -28,7 +28,7 @@ cover: "/assets/instacode.png"
 ### ExecuteSQL
 - select query를 하기 위한 프로세서
 - query 결과는 Avro 포맷으로 return 
-- https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi/nifi-standard-nar/1.5.0/org.apache.nifi.processors.standard.ExecuteSQL/index.html
+- [ExecuteSQL](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi/nifi-standard-nar/1.5.0/org.apache.nifi.processors.standard.ExecuteSQL/index.html)
 
 ### PutSQL
 - insert, update query를 하기위한 프로세서
@@ -36,12 +36,12 @@ cover: "/assets/instacode.png"
   - 여기서 중요한건 query문 끝에 ; 넣으면 오류난다. 빼야함 
 - flowfile의 query 문에 preparedStatement 처럼 ? 을 통한 query문을 적고 들어갈 값들에 대해서는 attributes로 설정가능
 - preparedStatement 처럼 ? 설정시, attribute에는 sql.args.N.type / sql.args.N.value 값이 꼭 있어야함!
-- https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi/nifi-standard-nar/1.6.0/org.apache.nifi.processors.standard.PutSQL/
+- [PutSQL](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi/nifi-standard-nar/1.6.0/org.apache.nifi.processors.standard.PutSQL)
 
 ### ConvertJSONToSQL
 - JSON 데이터을 Statement Type( Update, Insert, Delete)의 SQL문으로 변경시켜주는 프로세서
 - JSON 데이터는 Nested JSON일 경우, 그냥 String으로 취급하기에 Flat한 JSON 권장
-- https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi/nifi-standard-nar/1.6.0/org.apache.nifi.processors.standard.ConvertJSONToSQL/index.html
+- [ConvertJSONToSQL](https://nifi.apache.org/docs/nifi-docs/components/org.apache.nifi/nifi-standard-nar/1.6.0/org.apache.nifi.processors.standard.ConvertJSONToSQL/index.html)
  
 --- 
 - 사실상, 내가 다루는 데이터도 JSON 데이터이기에 ConvertJSONToSQL로 데이터 변경 후 , PutSQL로 사용하려했음
