@@ -47,12 +47,14 @@ cover: "/assets/instacode.png"
 - 사실상, 내가 다루는 데이터도 JSON 데이터이기에 ConvertJSONToSQL로 데이터 변경 후 , PutSQL로 사용하려했음
 - 하지만 Phoenix 자체는 insert 대신 upsert문을 사용하기에 ConvertJSONToSQL 한 후에도, ReplaceText로 insert를 upsert로 바꿔야하는 상황
 - 그래서 아예 ReplaceText를 사용하여 flowfile의 content에 query statement를 적용했음
-- 상세 옵션
-  1) Replacement Value	
-    - upsert into table_name values ('${'id'}','${'time''}',..,'${value}' )
-    - attribute에 있는 값들을 넣어줌
-  2) Replacement Strategy	
-    - Always Replace
-  3) Evaluation Mode	
-    - Entire text	
-    - 하나의 flowfile은 하나의 record로 분리해서 사용해서 line-by-line 대신 entire text로 사용
+
+1) Replacement Value	
+  - upsert into table_name values ('${'id'}','${'time''}',..,'${value}' )
+  - attribute에 있는 값들을 넣어줌
+
+2) Replacement Strategy	
+  - Always Replace
+
+3) Evaluation Mode	
+  - Entire text	
+  - 하나의 flowfile은 하나의 record로 분리해서 사용해서 line-by-line 대신 entire text로 사용
