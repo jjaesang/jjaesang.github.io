@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "[HP-Spark] 스파크 잡에 대해 알아보기"
-date: 2019-03-16 15:15:12
+title:  "[HP-Spark] 내가 생각하는 스파크"
+date: 2019-03-16 18:15:12
 categories: High-Performance-Spark 
 author : Jaesang Lim
 tag: Spark
