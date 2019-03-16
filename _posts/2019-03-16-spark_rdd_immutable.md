@@ -34,7 +34,7 @@ cover: "/assets/spark.png"
 - Users can define their own criteria for partitioning based on keys on which they want to join multiple datasets if needed.
 - When it comes to iterative distributed computing, i.e. processing data over multiple jobs in computations such as  Logistic Regression, K-means clustering, Page rank algorithms, it is fairly common to reuse or share the data among multiple jobs or it may involve multiple ad-hoc queries over a shared data set.This makes it very important to have a very good data sharing architecture so that we can perform fast computations.
 
-참고 ) [스파크 관련 Data-flair 블로그](https://data-flair.training/blogs/fault-tolerance-in-apache-spark/)
-참고 ) [외국인 아저씨 LinkedIn 블로그](https://www.linkedin.com/pulse/my-note-spark-rdd-manindar-g/)
+- 참고 ) [스파크 관련 Data-flair 블로그](https://data-flair.training/blogs/fault-tolerance-in-apache-spark/)
+- 참고 ) [외국인 아저씨 LinkedIn 블로그](https://www.linkedin.com/pulse/my-note-spark-rdd-manindar-g/)
 
-- 위 내용 기반으로 내 스스로의 답을 만들자 ! 이번주에 꼭
+#### 위 내용 기반으로 내 스스로의 답을 만들자 ! 이번주에 꼭
