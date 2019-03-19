@@ -14,9 +14,21 @@ cover: "/assets/instacode.png"
 ### 1. 개념
 ![그림1](https://user-images.githubusercontent.com/12586821/54606389-12574a00-4a8f-11e9-9778-3e0d2d04dec2.png)
 
-- 주어진 문서에 대하여 각 문서에 어떤 주제들이 존재하는지를 서술하는 대한 확률적 토픽 모델 기법 중 하나
+- 주어진 문서에 대하여 각 문서에 어떤 토픽들이 존재하는지를 서술하는 대한 확률적 토픽 모델 기법 중 하나
+> - 쉽게 말해, 문서 집합에서 어떤 토픽이 있는지 추론하는 Topic Model
 - 미리 알고 있는 토픽별 단어수 분포를 바탕으로, 주어진 문서에서 발견된 단어수 분포를 분석
 - 이 분석을 통해 해당 문서가 어떤 토픽들을 함께 다루고 있을지를 예측할 수 있음
+
+
+### 2. 방법론
+1. Unsupervised Learning 
+  - Dirichlet Distribution 기반으로 Document와 Topic를 모델링하는 방법
+  - 문서 집합을 제공하고, LDA는 주제를 Output
+  - 문서는 각 토픽가 있고, 각 토픽는 일련의 단어와 연관되어 있다라는 컨셉으로 시작 
+
+2. Iterative Algorithm
+  - 첫번째 Iteration은 각 문서의 모든 단어는 random topic 할당 
+  - 문서에 대한 Topic Distribution와 토픽에 걸친 Word Distribution이 계산 
 
 ### 2. 하이퍼 파라미터 
 
