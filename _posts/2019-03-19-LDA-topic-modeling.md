@@ -56,7 +56,9 @@ cover: "/assets/instacode.png"
 
 - 토픽 클러스터링 결과로, 토픽 키워드와 문서에 할당된 토픽 정보를 알 수 있음
 - 각 토픽 별, 키워드와 문서 정보를 활용하여 토픽 추출
-> - Topic 1, 2, .. K 이 아닌 , Topic의 이름을 할당해주자
+> - Topic 1, 2, .. K 이 아닌 , 토픽의 이름을 할당해주자
+
+
 ![그림2](https://user-images.githubusercontent.com/12586821/54606390-12efe080-4a8f-11e9-8369-e7d6ebc55c7f.png)
 ![그림4](https://user-images.githubusercontent.com/12586821/54606391-12efe080-4a8f-11e9-82d6-55ef45f3c596.png)
 
