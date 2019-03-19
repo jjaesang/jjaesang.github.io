@@ -9,7 +9,7 @@ cover: "/assets/instacode.png"
 ---
 
 ## LDA (Latent Dirichlet Allocation)
-> - 한국말로는 '잠재 디리클레 할당' 
+- 한국말로는 '잠재 디리클레 할당' 
 
 ### 1. 개념
 ![그림1](https://user-images.githubusercontent.com/12586821/54606389-12574a00-4a8f-11e9-9778-3e0d2d04dec2.png)
@@ -43,7 +43,7 @@ cover: "/assets/instacode.png"
 2. Max Iteration(학습 횟수)
 > - 최적의 K가 선정된 후, 일정 학습 시간이 지나면 logPerplexity와 logLikelihood 값은 일정하게 수렴함
 > - Max Iteration은 모델 학습 시간을 선형적으로 증가시킴
-> -수렴하기 시작하면 그 뒤의 학습은 결과에 큰 영향이 끼치지 않음 
+> - 수렴하기 시작하면 그 뒤의 학습은 결과에 큰 영향이 끼치지 않음 
 
 3. Optimizer ( Spark 2.1.2 기준 ML)
 - EMLDAOptimizer 
