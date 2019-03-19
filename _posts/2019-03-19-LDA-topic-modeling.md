@@ -45,6 +45,12 @@ cover: "/assets/instacode.png"
 > - Max Iteration은 모델 학습 시간을 선형적으로 증가시킴
 > -수렴하기 시작하면 그 뒤의 학습은 결과에 큰 영향이 끼치지 않음 
 
+3. Optimizer ( Spark 2.1.2 기준 ML)
+- EMLDAOptimizer 
+> - DistributedLDAModel
+- OnlineLDAOptimizer 
+> - LocalLDAModel
+
 
 ### 3. 모델 학습 결과
 
