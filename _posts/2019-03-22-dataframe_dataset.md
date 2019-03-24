@@ -123,8 +123,7 @@ cover: "/assets/spark.png"
 ##### Physical Plan -> (Janino) -> RDDs 으로 변경
 
 
-
-
+## 매우 유용한 [coursera 강의](https://www.coursera.org/lecture/big-data-analysis/catalyst-optimization-example-S2XwT)
 
 
 
