@@ -59,3 +59,12 @@ cover: "/assets/spark.png"
 ### UDF/UDAF
 
 ### 질의 옵티마이저
+
+- 카탈리스트는 스파크 SQL의 질의 옵티마이저
+> - 스파크 SQL의 핵심은 카탈리스트 옵티마이저이다.
+> - 질의 계획을 받아 스파크가 수행할 수 있는 실행 계획으로 변환 
+- DataFrame/Dataset에 관계형/함수형 트랜스포메이션을 적용할 때, 스파크 SQL은 논리 계획이라는 질의 계획을 표현하는 트리 그래프를 만듬
+> - RDD에 대한 트랜스포메이션이 DAG를 만드는 것 처럼..
+- 논리적 계획에 여러 최적화를 적용할 수 있으며, 비용 기반 모델을 써서 동일한 논리 계획에 대해 여러 물리적 계획을 세워 선택할 수 있음
+
+![Catalyst-Optimizer-diagram](https://user-images.githubusercontent.com/12586821/54874875-39b76980-4e37-11e9-8fc3-c5d6ce8ec877.png)
