@@ -102,3 +102,8 @@ jstat -gcutil -t -h20 ${PID} 1s
 - VisualGC 탭에서는 다음과 같이 Heap 메모리가 이쁘게 보임
 
 ![aa](https://user-images.githubusercontent.com/12586821/55393240-dd132780-5577-11e9-9a2d-b57b75400708.png)
+
+
+####참고
+[Garbage Collection 모니터링 방법](https://d2.naver.com/helloworld/6043)
+[VisualVM 사용](https://cdecl.net/310)
