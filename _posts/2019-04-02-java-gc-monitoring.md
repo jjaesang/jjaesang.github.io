@@ -16,7 +16,7 @@ cover: "/assets/instacode.png"
 - 하이튼, 이번에 Nifi 프로세스의 GC 모니터링을 하면서 사용해본 모니터링 툴(?), 방법에 대해 정리하고자 한다. 
 
 
-### jstat
+### 1. jstat
 - HotSpot JVM에 있는 모니터링 도구
 - 다양한 옵션(gc, gccapacity)등이 있지만, gcutil이 가장 확인하기 쉬웠음
 
@@ -51,7 +51,9 @@ jstat -gcutil -t -h20 ${PID} 1s
 - YGCT / YGC 하면 평균 Young GC 시간을 알 수 있음!
 - 하지만 GC의 수행 시간의 편차가 심할 수 있어 평균보다는 개별 GC 시간을 파악하려면 자바 프로세스 시작할 때 -verbosegc 옵션을 넣어 확인하는 것이 더 유리
 
-### jmap
+--- 
+
+### 2. jmap
 자바 어플리케이션의 메모리 맵을 확인할 수 있음
 
 #### jmap  -heap ${PID}
@@ -63,7 +65,9 @@ jstat -gcutil -t -h20 ${PID} 1s
 #### jmap -dump:format=b,file=myDump.hprof ${PID}
 > - heap dump 생성 후, visualVM으로 확인 가능
 
-### jvmtop
+--- 
+
+### 3. jvmtop
 
 - 실행중인 JVM의 Top 형태로 메모리 정보 및 CPU 프로파일링도 가능함
 - https://github.com/patric-r/jvmtop
@@ -76,7 +80,9 @@ jstat -gcutil -t -h20 ${PID} 1s
 > - JVM CPU 프로파일링
 ![jvmtop-profile](https://user-images.githubusercontent.com/12586821/55393213-cf5da200-5577-11e9-8f9c-eda804bbbe54.png)
 
-### visualVM ( with jstatd )
+--- 
+
+### 4. visualVM ( with jstatd )
 
 - JVM을 모니터링하는 GUI툴
 - Visual GC를 이용하면 jstatd 실행을 통해 GC 정보를 자세히, UI로 확인할 수 있음
@@ -103,7 +109,8 @@ jstat -gcutil -t -h20 ${PID} 1s
 
 ![aa](https://user-images.githubusercontent.com/12586821/55393240-dd132780-5577-11e9-9a2d-b57b75400708.png)
 
+--- 
 
-####참고
+#### 참고
 [Garbage Collection 모니터링 방법](https://d2.naver.com/helloworld/6043)
 [VisualVM 사용](https://cdecl.net/310)
