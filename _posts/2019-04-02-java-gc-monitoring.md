@@ -18,15 +18,15 @@ cover: "/assets/instacode.png"
 
 ### jstat
 - HotSpot JVM에 있는 모니터링 도구
-- 다양한 옵션(gc, gccapacity)등이 있지만, gcutil이 가장 확인하기 쉬웠다.
+- 다양한 옵션(gc, gccapacity)등이 있지만, gcutil이 가장 확인하기 쉬웠음
 
 1. gc
-	> - 각 힙(heap) 영역의 현재 크기와 현재 사용량(Eden 영역, Survivor 영역, Old 영역등), 총 GC 수행 횟수, 누적 GC 소요 시간을 보여 준다.
+	> - 각 힙(heap) 영역의 현재 크기와 현재 사용량(Eden 영역, Survivor 영역, Old 영역등), 총 GC 수행 횟수, 누적 GC 소요 시간을 보여줌
 2. gccapactiy
-	> - 각 힙 영역의 최소 크기(ms), 최대 크기(mx), 현재 크기, 각 영역별 GC 수행 횟수를 알 수 있는 정보를 보여 준다.
-	> - 단, 현재 사용량과 누적 GC 소요 시간은 알 수 없다.
+	> - 각 힙 영역의 최소 크기(ms), 최대 크기(mx), 현재 크기, 각 영역별 GC 수행 횟수를 알 수 있는 정보를 보여줌
+	> - 단, 현재 사용량과 누적 GC 소요 시간은 알 수 없음
 3. gcutil
-	> - 각 힙 영역에 대한 사용 정도를 백분율로 보여 준다. 아울러 총 GC 수행 횟수와 누적 GC 시간을 알 수 있다.
+	> - 각 힙 영역에 대한 사용 정도를 백분율로 보여 준다. 아울러 총 GC 수행 횟수와 누적 GC 시간을 알 수 있음
 
 #### gcutil
 jstat -gcutil -t -h20 ${PID} 1s
@@ -35,17 +35,17 @@ jstat -gcutil -t -h20 ${PID} 1s
 - '-h20' 20줄에 한번씩 header 찍음
 - '1s' 1초마다 결과 출력
 
-![gcutil](https://user-images.githubusercontent.com/12586821/55393255-e43a3580-5577-11e9-922f-6b5c60c324dd.png)
+![gcutil](https://user-images.githubusercontent.com/12586821/55393816-eb157800-5578-11e9-9f6c-f95942ba202b.png)
 
-- YGC 
- 	> - Young Generation의 GC 이벤트 발생 횟수
-- YGCT 
+- YGC
+  > - Young Generation의 GC 이벤트 발생 횟수
+- YGCT
   > - Yong Generation의 GC 수행 누적 시간	 ( 초 단위)
-- FGC 
+- FGC
   > - Full GC 이벤트가 발생한 횟수	
-- FGCT 
+- FGCT
   > - Full GC 수행 누적 시간	 ( 초 단위)
-- GCT 
+- GCT
   > - 전체 GC 수행 누적 시간 (초 단위)
 
 - YGCT / YGC 하면 평균 Young GC 시간을 알 수 있음!
@@ -54,23 +54,26 @@ jstat -gcutil -t -h20 ${PID} 1s
 ### jmap
 자바 어플리케이션의 메모리 맵을 확인할 수 있음
 
-- jmap  -heap ${PID}
+#### jmap  -heap ${PID}
 > - JVM Heap 상태를 확인 할 수 있음
-![jmap-heap](https://user-images.githubusercontent.com/12586821/55393214-cff63880-5577-11e9-96a4-aaf54a6086e3.png)
-
-- jmap -histo:live ${PID}
+![jmap-heap](https://user-images.githubusercontent.com/12586821/55393815-eb157800-5578-11e9-9615-b0373498bef6.png)
+#### jmap -histo:live ${PID}
 > - 클래스별 객체 수와 메모리 사용량 확인
 
-- jmap -dump:format=b,file=myDump.hprof ${PID}
+#### jmap -dump:format=b,file=myDump.hprof ${PID}
 > - heap dump 생성 후, visualVM으로 확인 가능
 
 ### jvmtop
 
 - 실행중인 JVM의 Top 형태로 메모리 정보 및 CPU 프로파일링도 가능함
 - https://github.com/patric-r/jvmtop
-- JVM 메모리 정보
+
+#### jvmtop ${PID}
+> - JVM 메모리 정보
 ![jvmtop](https://user-images.githubusercontent.com/12586821/55393212-cf5da200-5577-11e9-94c1-4d1704e31852.png)
-- JVM CPU 프로파일링
+
+#### jvmtop --profile ${PID}
+> - JVM CPU 프로파일링
 ![jvmtop-profile](https://user-images.githubusercontent.com/12586821/55393213-cf5da200-5577-11e9-8f9c-eda804bbbe54.png)
 
 ### visualVM ( with jstatd )
@@ -97,4 +100,5 @@ jstat -gcutil -t -h20 ${PID} 1s
 - 앞서 만든 heap dump ( myDump.hprof )을 시각화 할 수 있음
 - 덤프 파일을 생성할 수 도 있고, Sampler를 통해, CPU/Memory 사용중인 Thread 정보도 알 수 있음!
 - VisualGC 탭에서는 다음과 같이 Heap 메모리가 이쁘게 보임
+
 ![aa](https://user-images.githubusercontent.com/12586821/55393240-dd132780-5577-11e9-9a2d-b57b75400708.png)
