@@ -52,10 +52,10 @@ Choose a number: 28: 26
 ```
 
 #### 5. Maven 프로젝트 입력
-![new](https://user-images.githubusercontent.com/12586821/55532612-7a419d80-56e9-11e9-92c3-8330ca2c6478.PNG)
+![new](https://user-images.githubusercontent.com/12586821/55542993-22179500-5703-11e9-8ee7-23e8a88be1c0.PNG)
 
 #### 6. 빌드 성공 
-![new2](https://user-images.githubusercontent.com/12586821/55532613-7ada3400-56e9-11e9-8c1a-8f4458563048.PNG)
+![new2](https://user-images.githubusercontent.com/12586821/55542995-22179500-5703-11e9-87bc-9c859023ca07.PNG)
 
 #### 7. IntelliJ에서 읽어와, 필요한 프로세서 개발 
    - 프로세서 개발 후, nar파일 로드시, java.lang.NoClassDefFoundError: org/apache/nifi/ssl/SSLContextService 에러 발생할 수 있음
