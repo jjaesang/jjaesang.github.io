@@ -59,6 +59,7 @@ Choose a number: 28: 26
 
 #### 7. IntelliJ에서 읽어와, 필요한 프로세서 개발 
    - 프로세서 개발 후, nar파일 로드시, java.lang.NoClassDefFoundError: org/apache/nifi/ssl/SSLContextService 에러 발생할 수 있음
+   
     ```bash
         2019-04-03 12:35:38,762 ERROR [main] org.apache.nifi.NiFi Failure to launch NiFi due to java.util.ServiceConfigurationError: org.apache.nifi.processor.Processor: Provider com.zum.nifi.processors.kafka.MyKafkaConsumer could not be instantiated
         java.util.ServiceConfigurationError: org.apache.nifi.processor.Processor: Provider com.zum.nifi.processors.kafka.MyKafkaConsumer could not be instantiated
@@ -70,8 +71,10 @@ Choose a number: 28: 26
         ...
         ...
     ```
+   
    - 프로젝트에 xxx-xxx-nar , xxx-xxx-processors 두개의 디렉토리가 존재
    - xxx-xxx-nar 디렉토리의 POM.xml dependency 추가하면 해결
+   
     ```bash
       <dependency>
             <groupId>org.apache.nifi</groupId>
