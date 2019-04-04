@@ -59,29 +59,30 @@ Choose a number: 28: 26
 
 #### 7. IntelliJ에서 읽어와, 필요한 프로세서 개발 
    - 프로세서 개발 후, nar파일 로드시, java.lang.NoClassDefFoundError: org/apache/nifi/ssl/SSLContextService 에러 발생할 수 있음
-   
-    ```bash
-        2019-04-03 12:35:38,762 ERROR [main] org.apache.nifi.NiFi Failure to launch NiFi due to java.util.ServiceConfigurationError: org.apache.nifi.processor.Processor: Provider com.zum.nifi.processors.kafka.MyKafkaConsumer could not be instantiated
-        java.util.ServiceConfigurationError: org.apache.nifi.processor.Processor: Provider com.zum.nifi.processors.kafka.MyKafkaConsumer could not be instantiated
 
-        Caused by: java.lang.NoClassDefFoundError: org/apache/nifi/ssl/SSLContextService
-        ...
-        ...
-        Caused by: java.lang.ClassNotFoundException: org.apache.nifi.ssl.SSLContextService
-        ...
-        ...
-    ```
+  ```text
+          2019-04-03 12:35:38,762 ERROR [main] org.apache.nifi.NiFi Failure to launch NiFi due to java.util.ServiceConfigurationError: org.apache.nifi.processor.Processor: Provider com.zum.nifi.processors.kafka.MyKafkaConsumer could not be instantiated
+          java.util.ServiceConfigurationError: org.apache.nifi.processor.Processor: Provider com.zum.nifi.processors.kafka.MyKafkaConsumer could not be instantiated
+  
+          Caused by: java.lang.NoClassDefFoundError: org/apache/nifi/ssl/SSLContextService
+          ...
+          ...
+          Caused by: java.lang.ClassNotFoundException: org.apache.nifi.ssl.SSLContextService
+          ...
+          ...
+  
+  ```
    
    - 프로젝트에 xxx-xxx-nar , xxx-xxx-processors 두개의 디렉토리가 존재
    - xxx-xxx-nar 디렉토리의 POM.xml dependency 추가하면 해결
    
-    ```bash
-      <dependency>
-            <groupId>org.apache.nifi</groupId>
-            <artifactId>nifi-ssl-context-service</artifactId>
-            <version>1.8.0</version>
-      </dependency>
-    ```
+   ```xml
+    <dependency>
+        <groupId>org.apache.nifi</groupId>
+        <artifactId>nifi-ssl-context-service</artifactId>
+        <version>1.8.0</version>
+    </dependency>
+  ```
     
    - [관련 링크](https://cwiki.apache.org/confluence/display/NIFI/Maven+Projects+for+Extensions#MavenProjectsforExtensions-LinkingProcessorsandControllerServices)
     
@@ -89,6 +90,7 @@ Choose a number: 28: 26
 ```bash
 $ mvn clean install
 ```
+
 
 #### 9. 완성된 .nar을 Nifi의 lib에 넣고 Nifi 재시작
 > - 재시작 시, nifi-app.log에서 몇개의 Nar파일이 있고, 업로드한다는 로그가 남음
