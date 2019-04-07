@@ -75,6 +75,8 @@ e.g) 넓은 종속성에서의 장애 내구성 상황
 > - 사실상, coalesce(100) 으로 파티션을 늘린다면, 자식 RDD의 파티션은 100개가 아니다.
 > - 그 이유는 coalesce함수 내부를 보면 확인할 수 있는데, default로 함수의 두번쨰 인자, shuffle=false로 설정되어 있기 때문
 > - 늘릴라면 coalesce(100,true)로 줘야하, 이렇게 되면 repartition(100) 주는 것과 동일하다
+
+
 ```scala
   /**
    * Return a new RDD that has exactly numPartitions partitions.
@@ -88,7 +90,6 @@ e.g) 넓은 종속성에서의 장애 내구성 상황
   def repartition(numPartitions: Int)(implicit ord: Ordering[T] = null): RDD[T] = withScope {
     coalesce(numPartitions, shuffle = true)
   }
-  
 ``` 
 
 - coalesce함수는 자식 파티션에게 데이터를 공평하게 분산하는 것을 우선 순위로 둠
