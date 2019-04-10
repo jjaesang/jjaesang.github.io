@@ -51,8 +51,9 @@ cover: "/assets/spark.png"
   > - 누적 변수 2개를 받아 어떻게 합쳐서 결과 누적 함수를 만드는 함수 
 
 - 객체 사용을 줄이면서 this.type Annotation을 사용해 기존 객체를 돌려주는 방법에 대한 코드 및 내용 정리
-[객체 재사용하지 않음](https://github.com/jjaesang/Spark-Training/blob/master/src/main/scala/com/study/transform/MetricsCalculator.scala)
-[객체 재사용 + this.type](https://github.com/jjaesang/Spark-Training/blob/master/src/main/scala/com/study/transform/MetricsCalculatorReuseObject.scala)
+
+1. [객체 재사용하지 않음](https://github.com/jjaesang/Spark-Training/blob/master/src/main/scala/com/study/transform/MetricsCalculator.scala)
+2. [객체 재사용 + this.type](https://github.com/jjaesang/Spark-Training/blob/master/src/main/scala/com/study/transform/MetricsCalculatorReuseObject.scala)
 
 - 더 작은 자료구조를 사용할 수 있음
 > - case class나 tuple보다는 배열을 쓰는 것이 GC오버헤드를 줄이는데 효과적
@@ -62,4 +63,4 @@ cover: "/assets/spark.png"
 
 ---
 
-다음은 mapPartitions , 셋업 오버헤드를 줄이는 브로드캐스트, 어큐물레이터에 대해 다룰 예정
+다음은 mapPartitions , 셋업 오버헤드를 줄이는 브로드캐스트, 어큐물레이터에 대해 다룰 예
