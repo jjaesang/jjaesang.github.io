@@ -146,7 +146,7 @@ cover: "/assets/spark.png"
   - 종속성 정보는 스케줄러가 현재의 RDD가 어떤식으로 다른 RDD에 종속될지에 알려준다
   - Narrow dependency
       >  - 부모의 파티션 중에서 한개나 작은 부분 집합만 필요로 할 때
-  - Wide dependenct
+  - Wide dependency
       > - 파티션이 반드시 부모의 모든 데이터를 재배치하고 연산해야만 되는 경우 
 
   ```
