@@ -70,19 +70,19 @@ Choose a number: 28: 26
           Caused by: java.lang.ClassNotFoundException: org.apache.nifi.ssl.SSLContextService
           ...
           ...
-  
   ```
    
    - 프로젝트에 xxx-xxx-nar , xxx-xxx-processors 두개의 디렉토리가 존재
    - xxx-xxx-nar 디렉토리의 POM.xml dependency 추가하면 해결
    
    ```xml
-    <dependency>
-        <groupId>org.apache.nifi</groupId>
-        <artifactId>nifi-ssl-context-service</artifactId>
-        <version>1.8.0</version>
-    </dependency>
-  ```
+      <dependency>
+            <groupId>org.apache.nifi</groupId>
+            <artifactId>nifi-standard-services-api-nar</artifactId>
+            <version>1.8.0</version>
+            <type>nar</type>
+      </dependency>
+   ```
     
    - [관련 링크](https://cwiki.apache.org/confluence/display/NIFI/Maven+Projects+for+Extensions#MavenProjectsforExtensions-LinkingProcessorsandControllerServices)
     
