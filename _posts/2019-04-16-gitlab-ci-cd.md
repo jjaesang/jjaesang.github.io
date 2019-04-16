@@ -87,7 +87,6 @@ deploy:
   only:
     - master
   stage: deploy
-  # GIT_STRATEGY 
   variables:
     GIT_STRATEGY: none
   script:
@@ -108,14 +107,8 @@ restart:
   variables:
       GIT_STRATEGY: none
   script:
-   - echo "STOP Nifi Services for update latest custom nar.. "
-   - ssh -p6879 ${AMBARI_SERVER} "echo ${NIFI_PASSWORD} | sudo -S sh ~/nifi_rest_api.sh stop "
-   - sleep 1s
-   - echo "CHECK Nifi Services STOP completely.. "
-   - ssh -p6879 ${AMBARI_SERVER} "echo ${NIFI_PASSWORD} | sudo -S sh ~/nifi_rest_api.sh status "
-   - sleep 1s
-   - echo "[RE]START Nifi Services for update latest custom nar.. "
-   - ssh -p6879 ${AMBARI_SERVER} "echo ${NIFI_PASSWORD} | sudo -S sh ~/nifi_rest_api.sh start "
+   - echo "RESTART Nifi Services for update latest custom nar.. "
+   - ssh -p6879 ${AMBARI_SERVER} "echo ${NIFI_PASSWORD} | sudo -S sh ~/nifi_rest_api.sh restart "
   when: manual
   tags:
     - nifi-bundle
