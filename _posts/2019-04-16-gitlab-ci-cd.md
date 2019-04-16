@@ -42,8 +42,9 @@ $ gitlab-runner register
 $ gitlab-runner restart
   
 ```
-
 - 위의 작업하면 CI/CD 탭의 runner가 초록불이 들어오면 정상!
+
+
 ---
 
 ## 2. .gitlab-ci.yml 포맷
