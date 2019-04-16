@@ -46,8 +46,9 @@ cover: "/assets/instacode.png"
  > > - 직접 수동으로 실행하고자 할 때는 'when: manual'로 정의
 
 - 전체 예시
-```yaml
 
+
+```yaml
 stages :
   - test
   - build
@@ -118,8 +119,4 @@ restart:
   when: manual
   tags:
     - nifi-bundle
-
-
-
-
 ```
