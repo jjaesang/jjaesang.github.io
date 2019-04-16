@@ -15,8 +15,36 @@ cover: "/assets/instacode.png"
 2. .gitlab-ci.yml 정의
 
 - 총 두 단계만 진행하도록 하겠음!
+---
 
 ## 1. gitlab-runner 등록
+
+![333](https://user-images.githubusercontent.com/12586821/56197008-e5d52480-6072-11e9-8af0-f44d72ed7735.png)
+
+```bash
+$ gitlab-runner register
+
+        Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com/):
+        # 위에 있는 URL
+        Please enter the gitlab-ci token for this runner:
+        # 위에 있는 Token
+        Please enter the gitlab-ci description for this runner:
+        [xxxx]:
+        Please enter the gitlab-ci tags for this runner (comma separated):
+        
+        nifi-bundle    : 실제로 구별하는 tag 아주 중요한 이름 잘짖기
+        Registering runner... succeeded                     runner=Emp_iyNFxa
+        Please enter the executor: docker, shell, ssh, virtualbox, docker-ssh, parallels, docker+machine, docker-ssh+machine, kubernetes:
+        # shell로 Job 정의할 꺼니깐
+        shell
+        Runner registered successfully. Feel free to start it, but if it's running already the config should be automatically reloaded!
+
+$ gitlab-runner restart
+  
+```
+
+- 위의 작업하면 CI/CD 탭의 runner가 초록불이 들어오면 정상!
+---
 
 ## 2. .gitlab-ci.yml 포맷
 
