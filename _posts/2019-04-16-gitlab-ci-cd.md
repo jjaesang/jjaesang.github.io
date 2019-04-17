@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "[Nifi] GitLab CI/CD 설정 "
+title:  "[ETC] GitLab CI/CD 설정 "
 date: 2019-04-16 17:15:12
 categories: etc 
 author : Jaesang Lim
-tag: Spark
+tag: etc
 cover: "/assets/instacode.png"
 ---
 
