@@ -2,9 +2,9 @@
 layout: post
 title:  "[ELASTIC SEARCH] Too many open file Error & Index read-only problem "
 date: 2019-04-18 10:15:12
-categories: etc 
+categories: elasticsearch 
 author : Jaesang Lim
-tag: etc
+tag: elasticsearch
 cover: "/assets/instacode.png"
 ---
 

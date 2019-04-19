@@ -2,7 +2,7 @@
 layout: post
 title:  "Garbage Collection Monitoring"
 date: 2019-04-02 14:55:12
-categories: Etc
+categories: GC
 author : Jaesang Lim
 tag: GC
 cover: "/assets/instacode.png"
