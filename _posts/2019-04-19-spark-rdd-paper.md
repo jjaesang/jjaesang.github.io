@@ -14,9 +14,8 @@ cover: "/assets/spark.png"
 ### 1. 무엇을 다루고자 하는가
 - MapReduce와 Dryad가 대용량의 데이터를 처리하는 분산 프로그래밍 모델로 널리 사용중이였음
 - 하지만 기존 프로그래밍모델에서 사용되는 acyclic data flow model이 적합하지 않은 두가지 application이 있음
-- ml, graph application에 사용되는 iterative algorithm과 interactive data mining tool은 중간결과를 디스크에 저장하면서 
-- 데이터를 iteractive, interactive하게 활용시, overhead와 latency가 크면서, 데이터를 재사용(reuse)할 수 있는 Distributed memory abstraction을 소개함
-- 재사용 뿐 아니라, 기존 acyclic data flow model이 가지는 중요 특징을 가진 Distributed memory abstraction, RDD를 소개하고 함
+- ml, graph application에 사용되는 iterative algorithm과 interactive data mining tool은 중간결과를 디스크에 저장하면서 데이터를 iteractive, interactive하게 활용시, overhead와 latency가 큰 문제가 있음
+- 데이터를 메모리에 cache하여 재사용 특징과 기존 acyclic data flow model이 가지는 중요 특징을 가진 Distributed memory abstraction, RDD를 소개하고 함
 
 ---
 좀 자세히 알아보자면 ..
@@ -29,12 +28,12 @@ cover: "/assets/spark.png"
 3. load balancing
 4. commodity clusters에서의 대용량 데이터 분석 능력
 - 일반적으로 cluster computing system은 acyclic data flow model를 기반으로 함
-> - acyclic data flow model를 간단히 이해하자만, 특정 분산 스토리지에서 데이터를 읽어와, deterministic operator로 이루어진 DAG를 구축해, 결과를 다시 persist한 storage에 저장해놓지.
+> - acyclic data flow model를 간단히 이해하자, 특정 분산 스토리지에서 데이터를 읽어와, deterministic operator로 이루어진 DAG를 구축해, 결과를 다시 persist한 storage에 저장
 - 하지만 이 acyclic data flow model이 효율적으로 작동하지 못하는 application 타입이 있음
 - 바로 !! parallel operation에서의 중간 또는 결과 데이터를 **재사용(reuse)** 하는 경우
 - 예를 들자면 
 > - 1. iterative algorithm
-  > > - machine learning, graph application
+  > - machine learning, graph application
 > - 2. interactive data mining tool
 
 - 왜냐고? 기존 분산 프로그래밍 모델들은 결과를 disk에 저장하고, 다시 읽는 즉, reuse하는 경우에는 다시 disk에서 읽어와 latency와 overhead가 생기기 때문
@@ -74,15 +73,15 @@ cover: "/assets/spark.png"
 
 ---
 
-### RDD VS DSM(Distributed Shared Memory)
+### 5. RDD VS DSM(Distributed Shared Memory)
 
 - DSM을 활용한 응용 프로그램은 global address의 임의의 위치를 읽고 쓰는 과정
-- 하지만 클러스터 환경에서의 DSM는 효율적이고 fault-tolerance하게 구현하는 것이 어려움
+- 하지만 클러스터 환경에서의 DSM 효율적이고 fault-tolerance하게 구현하는 것이 어려움
 
 1. DSM은 어떤 공유되는 메모리공간에 값을 read/write할 수 있지만, RDD는 coarse-grained transformations 방법으로만 write할 수 있음
 > - Write 측면에서는 DSM은 'fine-grained', RDD는 'coarse-grained'
 > - Read 측면에서는 DSM은 'fine-grained', RDD는 'fine or coarse-grained'
-> - RDD를 하나의 lookup table로 사용할 수 있기 때문
+  > - RDD를 하나의 lookup table로 사용할 수 있기 때문
 
 2. Stragglers(다른 Task에 비해 뒤쳐진, 느린 Task)에 대한 작업이 가능, 즉 투기적 실행이 가능
 > - DSM은 두개의 작업 복사본이 동이한 메모리 위치를 읽으면서, 서로 update를 하는 등의 문제가 있어 구현하기 어려움
@@ -97,24 +96,9 @@ cover: "/assets/spark.png"
 > - RDD는 lineage를 통해 low-overhead로 장애 복구할 수 있음
 > - DSM은 checkpointing을 하거나 애플케이션 자체를 rollback해야함
 
+---
 
-### RDD
-
-- RDD는 read-only, partitioned collections of records
-1. HDFS같은 Storage에서 읽어와 만들 수 있음
-2. 이미 존재하는 RDD를 이용하여 만들 수 있음
-- RDD를 만드는 과정을 Transformation이라 하며, Lazy-Evaluation를 통해 action이 발생하기 전까지는 계속 Lineage에 Transformation을 기록만 해둠
-
-Spark에서의 RDD의 구현법
-- 우리는 2가지 측면으로 RDD를 controll할 수 있음
-1. cache
-> - cache하면 runtime동안 해당 서버 메모리에 저장되고, cache사이즈가 되면 disk로 spill함
-
-2. partitioning
-> - RDD의 각 record의 key기반으로 partitioning을 할 수 있음 ( hash or range )
-
-
-### RDD가 적합하지 않은 애플리케이션
+### 6. RDD가 적합하지 않은 애플리케이션
 
 - fine-grained 형태로 공유하는 상태값을 비동기적으로 업데이트, 처리하는 웹 애플리케이션 등에는 적합하지 않음
 - 이런 애플리케이션에는 transaction를 보장하며, checkpoint하는 DB가 더 효율적
@@ -122,13 +106,21 @@ Spark에서의 RDD의 구현법
 - RDD는 모든 record에 동일한 operation을 수행하는 배치 애플리케이션에 적합함 ( coarse-grained transformation을 제공하니깐 )
 - 각 Transformation lineage를 통해 효율적으로 저장해, 많은 양의 로그를 기록할 필요없이 fault-tolerance할 수 있음
 
+---
 
-### RDD가 Checkpointing도 제공함!
+### 7. RDD가 Checkpointing도 제공함!
 
 - lineage를 통해 RDD의 장애를 복구할 수 있으나, 매우 긴~ Lineage일 경우, wide transformation인 경우 모든 partition을 다시 다 재계산해야하므로,
 - 복구하는 시간이 lineage를 통해 재계산하는 것보다 , checkpointing하는 것이 빠를 수 도 있음
 
-- RDD의 immutable 특성은  일반적인 shared memory보다 checkpointing을 더 간단하게 만듭니다.
-프로그램 일시 중지 또는 분산 스냅 샷 구성없이 RDD를 백그라운드에서 작성할 수 있습니다.
+- RDD의 immutable 특성은 일반적인 shared memory보다 checkpointing을 더 간단하게 만듬
+> - 프로그램 일시 중지 또는 분산 스냅샷 구성없이 RDD를 백그라운드에서 작성할 수 있기 때문
+
+---
+
+#### 8. 결론
+- resilient distributed datasets (RDDs), an efficient, general-purpose and fault-tolerant abstraction for sharing data in cluster applications.
+- fault-toleranance하기 위해 데이터 replication이 필요했던 기존의 클러서터의 저장방식대신, lineage 방식을 이용하 효율적인 장애 복구를 할 수 있음
 
 
+---
