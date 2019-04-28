@@ -52,53 +52,53 @@ cover: "/assets/kafka_log.png"
 
 ### Producer 
 
-- producer는 같은 파티션에 대한 데이터를 batch로 처리함. 즉, 여러 message를 하나의 request로 묶어서 전송함
-> - 한국 카프카 사용자 모임 발표때 들어보니, 배치로 처리하는 것은 네트워크의 ack, header등을 아낄 수 있다고 함 ( Naggle's algorithm 기반 )
-- 그래서, producer 측면에서는 다음과 같은 configuration을 고려해야함
+> - producer는 같은 파티션에 대한 데이터를 batch로 처리함. 즉, 여러 message를 하나의 request로 묶어서 전송함
+> > - 한국 카프카 사용자 모임 발표때 들어보니, 배치로 처리하는 것은 네트워크의 ack, header등을 아낄 수 있다고 함 ( Naggle's algorithm 기반 )
+> - 그래서, producer 측면에서는 다음과 같은 configuration을 고려해야함
 
-#### 1. batch.size = 100,000~200,000 (default : 16384) / linger.ms = 10~100 (default : 0)
+> #### 1. batch.size = 100,000~200,000 (default : 16384) / linger.ms = 10~100 (default : 0)
 
-- 한번의 batch request의 데이터 사이즈 / 배치사이즈가 다 채우질 때까지 기다리는 시간
-- broker서버의 요청하는 request수가 적어, Producer의 load 및 broker CPU overhead를 줄일 수 있음
+> - 한번의 batch request의 데이터 사이즈 / 배치사이즈가 다 채우질 때까지 기다리는 시간
+> - broker서버의 요청하는 request수가 적어, Producer의 load 및 broker CPU overhead를 줄일 수 있음
 
-- tradeoff 
-> - message을 받은 즉시 전송하지 않기 때문에 Latency가 증가함
+> - tradeoff 
+> > - message을 받은 즉시 전송하지 않기 때문에 Latency가 증가함
 
-#### 2. compression.type = lz4 (default : none)
-- lz4, snappy, gzip을 지원하며, compression은 전송전 batch처리에 적용되므로, 압축률에 batch 처리의 효율성에 영향이 미침 
-- 즉, 배치 비율이 높을수록 압축률이 향상됩
+> #### 2. compression.type = lz4 (default : none)
+> - lz4, snappy, gzip을 지원하며, compression은 전송전 batch처리에 적용되므로, 압축률에 batch 처리의 효율성에 영향이 미침 
+> - 즉, 배치 비율이 높을수록 압축률이 향상됩
 
-#### 3. ack = 1 (dafault 1)
-- batch request는 leader partition에 요청을 보내고, producer는 broker서버에게 ack를 기다림
-- ack를 빨리 받으면 받을 수 록, throughput이 증가함
+> #### 3. ack = 1 (dafault 1)
+> - batch request는 leader partition에 요청을 보내고, producer는 broker서버에게 ack를 기다림
+> - ack를 빨리 받으면 받을 수 록, throughput이 증가함
 
-- tradeoff
-> -  low duarablity  ( ack =1 ) 
+> - tradeoff
+> > -  low duarablity  ( ack =1 ) 
 
-#### 4. retries = 0 (default 0)
-- producer가 전송 실패시 재시도 횟수
-- reties =0로 설정시 데이터 유실이 있을 수 있음
+> #### 4. retries = 0 (default 0)
+> - producer가 전송 실패시 재시도 횟수
+> - reties =0로 설정시 데이터 유실이 있을 수 있음
 
-#### 5. max.block.ms / buffer.memory
-- Producer는 보내지 않은 메시지를 메모리 buffer에 저장해둠 ( producer의 accumulator )
-- 보내지 않은 메세지를 담은 buffer가 가득차면, max.block.ms가 지나거나, 메모리가 해제되기 전까지 전송을 하지 않음
-- partition이 많지 않다면, 이 설정값을 수정할 필요는 없음
-- 하지만, partition수가 많으면, buffer.memory, linger time, partition수 등을 고려해야하여, memory를 늘린다면 전송 로직이 멈추지 않아 throughput 증가
+> #### 5. max.block.ms / buffer.memory
+> - Producer는 보내지 않은 메시지를 메모리 buffer에 저장해둠 ( producer의 accumulator )
+> - 보내지 않은 메세지를 담은 buffer가 가득차면, max.block.ms가 지나거나, 메모리가 해제되기 전까지 전송을 하지 않음
+> - partition이 많지 않다면, 이 설정값을 수정할 필요는 없음
+> - 하지만, partition수가 많으면, buffer.memory, linger time, partition수 등을 고려해야하여, memory를 늘린다면 전송 로직이 멈추지 않아 throughput 증가
 
 ### Consumer 
 
-#### 1. fetch.min.bytes = ~ 100,000 / fetch.max.waits.ms
+> #### 1. fetch.min.bytes = ~ 100,000 / fetch.max.waits.ms
 
-- leader partition을 가진 broker에게 fetch request시, 얼만큼 데이터를 가져올 것인가로 조정할 수 있음
-- 이 값을 올린다면, fetch request 횟수는 줄어드므로 , broker CPU overhead는 감소함 
-> - increase Througput / decrease Latency
-- fetch request에 fetch.min.bytes를 충족시킬만큼의 메시지가 있거나 fetch.max.wait.ms이 만료 될 때까지 broker는 consumer에게 message를 전송하지 않음
- 
-#### 2. consumer 개수
-- consumer 수가 많으면 parallelism 증가, load 분산, 동시에 여러개 partition 땡기면서 Througput 증가
+> - leader partition을 가진 broker에게 fetch request시, 얼만큼 데이터를 가져올 것인가로 조정할 수 있음
+> - 이 값을 올린다면, fetch request 횟수는 줄어드므로 , broker CPU overhead는 감소함 
+> > - increase Througput / decrease Latency
+> - fetch request에 fetch.min.bytes를 충족시킬만큼의 메시지가 있거나 fetch.max.wait.ms이 만료 될 때까지 broker는 consumer에게 message를 전송하지 않음
 
-#### 3. GC 튜닝
-- [kafka Recommended JVM Setting](https://docs.confluent.io/current/kafka/deployment.html#jvm)
+> #### 2. consumer 개수
+> - consumer 수가 많으면 parallelism 증가, load 분산, 동시에 여러개 partition 땡기면서 Througput 증가
+
+> #### 3. GC 튜닝
+> - [kafka Recommended JVM Setting](https://docs.confluent.io/current/kafka/deployment.html#jvm)
 
 
 --- 
