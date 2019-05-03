@@ -4,7 +4,7 @@ title:  "Optimizing Kafka Deployment Paper 정리"
 date: 2019-04-28 14:05:12
 categories: Kafka
 author : Jaesang Lim
-tag: Spark
+tag: Kafka
 cover: "/assets/kafka_log.png"
 ---
 [optimizing-your-apache-kafka-deployment](https://www.confluent.io/white-paper/optimizing-your-apache-kafka-deployment/) 논문 리뷰
@@ -35,7 +35,7 @@ cover: "/assets/kafka_log.png"
 - e.g) event-driven microservices pipeline / integration between a streaming source and permanent Storage
 - 한번 커밋된 데이터는 유실되지 않아야함 ( 데이터 유실 없애자 )
 
-#### 4. High Acailability
+#### 4. High Availability
 - Minimizes downtime in case of unexpected failures
 - kafka는 분산시스템으로 fault-tolerance이 구현되어 있음
 - downTime을 최소화하자
