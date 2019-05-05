@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[NoSQL] Chapter 1) 왜 NoSQL 인가? "
+title:  "[NoSQL] Ch1. 왜 NoSQL 인가? "
 date: 2019-05-05 11:15:12
 categories: NoSQL 
 author : Jaesang Lim˚
