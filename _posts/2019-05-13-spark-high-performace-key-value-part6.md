@@ -8,6 +8,8 @@ tag: Spark
 cover: "/assets/spark.png"
 ---
 
+## 키/값 데이터로 작업하기
+
 - 스파크는 자체적으로 튜플을 키/값 기반으로 RDD에 쓸수 있도록 구성된 함수들의 클래스 PairRDDFunctions 제공
 > - PairRDDFunctions 클래슨는 암묵적 변환을 통해 사용 가능 
 > > - RDD[(K,V)] 형태로 만들면 PairRDDFunctions의 함수들을 쓸 수 있음
@@ -49,4 +51,28 @@ cover: "/assets/spark.png"
 > > - 이그제큐터의 메모리 오류를 막고 넓은 트랜스포메이션의 속도를 향상 시킬 수 있음
 > - 2) 뒤처지는 작업 감지와 균형이 맞지 않은 데이터
 > > - 키에 따른 레코드 비율이 균등하게 분배된 데이터나 중복되지 않은 키의 비율이 높은 데이터를 셔플하는 것은 이그제규터의 메모리 오류와, 뒤쳐지는 태스트 방지 가능
+
+---
+
+## PairRDDFunctions과 OrderedRDDFunctions의 사용법
+
+- 스파크 RDD 클래스는 스칼라의 implicit를 쓰고 있으며 PairRDDFunctions은 (K,V) 타입을 가진 모든 RDD에서 사용 가능
+- PairRDDFunctions은 K,V은 아무타입이나 상관없음
+> - OrderedRDDFunctions에 대해서는 K가 순서를 가질 수 있는 타입
+> - 숫자, 문자열 대신 임의의 타입을 사용하려면 직접 순서를 정의해야함
+> - PairRDD나 OrderedRDD 타입으로 변환하는 요구사항을 만족하기 위해 암묵적변환을 사용함
+
+## 키/값 쌍의 액션들
+
+- countByKey, countByValue, lookUp, collectAsMap
+- countByKey는 각 키마다 데이터 리턴, 단일 키 종류가 많다면 메모리 에러 가능성이 있음
+- lookUp은 한 키에 대한 모든 값을 리턴
+> - lookUp은 등록된 파티셔너가 없으면 셔플을 발생시키기 때문에 고비용 연산
+
+-  키/값 디자인 방법
+> - 값은 최소한 키의 분포 비율에 따라 잘 분배되어야함
+> - 각 키에는 개별 이그제큐터의 메모리 이상 레코드가 들어지 않게 하는 것이 좋음
+
+- 키/값 트랜스포메이션은 하나의 키와 관련된 모든 데이터가 한 파티션 내에서 메모리에 유지되어야하는 경우
+- 이그제큐터 메모리 오류 발생할 수 있음
 
