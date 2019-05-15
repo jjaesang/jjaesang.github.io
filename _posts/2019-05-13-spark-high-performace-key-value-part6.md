@@ -151,7 +151,7 @@ cover: "/assets/spark.png"
 > - combineByKey와 동일
 > - 타입 제한이 메모리 에러를 일으키지는 않음
 > - 컬렉션 타입이 아닌 이상 콤바인 함수에서 리듀싱이 일어남
-> - 추자적인 누적 객체를 만들지 않으므로 GC도 aggregateByKey보다 적음
+> - 추가적인 누적 객체를 만들지 않으므로 GC도 aggregateByKey보다 적음
 
 - 느려지는 상황
 > - combineByKey와 비슷
@@ -171,13 +171,10 @@ cover: "/assets/spark.png"
 > - 객체 생성을 줄여, 객체 재사용 지원하여 combineByKey보다는 저렴
 
 - 메모리가 부족한 상황
-> - combineByKey와 동일
-> - 타입 제한이 메모리 에러를 일으키지는 않음
-> - 컬렉션 타입이 아닌 이상 콤바인 함수에서 리듀싱이 일어남
-> - 추자적인 누적 객체를 만들지 않으므로 GC도 aggreateByKey보다 적음
+> - reduceByKey와 동일
 
 - 느려지는 상황
-> - combineByKey와 비슷
+> - reduceByKey와 비슷
 
 - 결과 파티셔너
 > - default : HashPartitioner
