@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[Data-Intensive] Ch1. 신뢰성,확장성,유지보수k"
+title:  "[Data-Intensive] Ch1. 신뢰성,확장성,유지보수성"
 date: 2019-05-18 19:15:12
 categories: Data-Intensive-Application 
 author : Jaesang Lim˚
