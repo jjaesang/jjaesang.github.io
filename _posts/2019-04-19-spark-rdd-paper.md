@@ -55,7 +55,7 @@ cover: "/assets/spark.png"
 ---
 
 ### 4. RDD의 fault-tolerance
-- 위에서 설명했듯이 acyclie data model의 매력적인 특징 3가지를 다 가지고 있음
+- 위에서 설명했듯이 acycle data model의 매력적인 특징 3가지를 다 가지고 있음
 - 하지만 그 중, 'fault-tolerance'의 특징을 효율적으로 지원하는 것이 가장 어려웠음..
 - 왜? 일반적으로 distribute dataset의 fault-tolerance를 보장하기 위해서는 두가지 방법이 있었음
 > 1. disk에 checkpointing
@@ -68,7 +68,7 @@ cover: "/assets/spark.png"
 - 그래서 두번째 방법, log update으로 fault-tolerance 문제를 해결하였음
 > - 물론, logging할게 많아지면 이것 또한 비쌈..
 > - 하지만, RDD의 transformation은 coarse-grained transformation만을 지원하기 때문에 fine-grained만큼 로깅할 양이 적음
-> - lineage에는 RDD가 어떻게 만들어졌는지애 대한 transformation을 기록해두고, parition의 문제가 발생했을시 lineage 정보를 통해 복구가 가능하게 하였음
+> - lineage에는 RDD가 어떻게 만들어졌는지애 대한 transformation을 기록해두고, partition의 문제가 발생했을시 lineage 정보를 통해 복구가 가능하게 하였음
 > - 그 결과, RDD는 lineage을 통해 작업에 실패한 partition이나 rdd를 low-overhead로 복원할 수 있음
 
 ---
@@ -84,7 +84,7 @@ cover: "/assets/spark.png"
   > - RDD를 하나의 lookup table로 사용할 수 있기 때문
 
 2. Stragglers(다른 Task에 비해 뒤쳐진, 느린 Task)에 대한 작업이 가능, 즉 투기적 실행이 가능
-> - DSM은 두개의 작업 복사본이 동이한 메모리 위치를 읽으면서, 서로 update를 하는 등의 문제가 있어 구현하기 어려움
+> - DSM은 두개의 작업 복사본이 동일한 메모리 위치를 읽으면서, 서로 update를 하는 등의 문제가 있어 구현하기 어려움
 > - RDD가 **Immutable**한 장점 중 하나라고 할 수 있음
 
 3. Data locality 기반으로 작업을 자동 할당
