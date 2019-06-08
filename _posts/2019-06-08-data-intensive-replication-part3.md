@@ -65,17 +65,42 @@ cover: "/assets/instacode.png"
 #### 읽기와 쓰기를 위한 정족수 
 <img width="761" alt="스크린샷 2019-06-08 오후 6 24 35" src="https://user-images.githubusercontent.com/12586821/59145180-4baeae80-8a1b-11e9-872c-f4941050155d.png">
 
+---
+
 #### 정족수 일관성의 한계
+
+---
+
 #### 최신성 모니터링
+
+---
+
 #### 느슨한 정족수와 암시된 핸드오프
+
+---
+
 #### 동시 쓰기 감지
 <img width="761" alt="스크린샷 2019-06-08 오후 6 24 50" src="https://user-images.githubusercontent.com/12586821/59145181-4c474500-8a1b-11e9-866b-3936a8135b04.png">
 
+---
+
 #### 최종 쓰기 승리 (동시 쓰기 버리기)
+
+---
+
 #### 이전 발생 관계와 동시성
+
+---
+
 #### 이전 발생 관게 파악하기
 <img width="761" alt="스크린샷 2019-06-08 오후 6 25 11" src="https://user-images.githubusercontent.com/12586821/59145182-4c474500-8a1b-11e9-97c4-462d402b69b5.png">
 <img width="761" alt="스크린샷 2019-06-08 오후 6 25 36" src="https://user-images.githubusercontent.com/12586821/59145183-4c474500-8a1b-11e9-988e-6c1afd21f3a3.png">
 
+---
+
 #### 동시에 쓴 값 병합
-#### 버전 벡
+
+---
+
+#### 버전 벡터
+
