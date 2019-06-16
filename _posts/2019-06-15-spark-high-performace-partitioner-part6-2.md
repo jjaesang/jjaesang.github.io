@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "[HP-Spark] 파티셔너와 키/값 데이타 "
+title:  "[HP-Spark] 파티셔너와 키/값 데이터 "
 date: 2019-06-14 18:45:12
 categories: High-Performance-Spark 
 author : Jaesang Lim
@@ -33,8 +33,10 @@ RDD 파티션되는 방식을 변경하는 메소드
 파티셔너란?
 - 레코드를 어떻게 분산하고 그로 인해 각 태스크가 어떤 레코드들을 처리할 것인가를 정의하는 것
 - numPartitions, getPartition 두 함수를 가지는 추상 클래스
-> - numPartitions : 파티셔닝이 끝난 후 RDD의 파티션 개수를 정의
-> - getPartition(key) : 키에 대해 키와 연계된 레코드가 전송되는 파티션의 정수 인덱스와의 매핑을 정의
+> - numPartitions 
+> > - 파티셔닝이 끝난 후 RDD의 파티션 개수를 정의
+> - getPartition(key)
+> > - 키에 대해 키와 연계된 레코드가 전송되는 파티션의 정수 인덱스와의 매핑을 정의
 
 ---
 
@@ -87,7 +89,7 @@ class HashPartitioner(partitions: Int) extends Partitioner {
 - 인자로 partitions 뿐 아니라, 샘플을 위한 실제RDD를 필요로함
 > - RDD는 튜플이여야하며, 키들은 정의된 순서를 갖고 있어야함
 
-- 샘플링은 실제로 RDD를 부분적으로 평가하며, 실행그래프를 끊게 됨
+- 샘플링은 실제로 RDD를 부분적으로 평가하며, 실행 그래프를 끊게 됨
 > - 그래서, 트랜스포메이션이면서 액션이기도 함
 
 ```scala
