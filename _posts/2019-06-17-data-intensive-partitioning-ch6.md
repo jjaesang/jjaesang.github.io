@@ -62,3 +62,49 @@ cover: "/assets/instacode.png"
 방금까지가 정리였고, 이제 **파티셔닝**에 대해 세세하게 알아봅시다~
 
 ---
+
+## 파티셔닝
+
+### 파티셔닝과 복제
+![1](https://user-images.githubusercontent.com/12586821/59677741-8c6dab00-9205-11e9-8e19-9c4781307aa7.PNG)
+
+---
+
+### 키-값 데이터 파티셔닝
+#### 1. 키 범위 기준 파티셔닝
+#### 2. 키의 해시값 기준 파티셔닝
+![3](https://user-images.githubusercontent.com/12586821/59677742-8c6dab00-9205-11e9-8cb1-1f70e819cc1a.PNG)
+#### 쏠린 작업부하와 핫스팟 완화
+
+---
+
+### 파티셔닝과 보조 색인
+#### 1. 문서 기분 보조 색인 파티셔닝
+
+![4](https://user-images.githubusercontent.com/12586821/59677743-8d064180-9205-11e9-8f5c-38690196488c.PNG)
+![5](https://user-images.githubusercontent.com/12586821/59677734-8bd51480-9205-11e9-8f49-55656f08cfcc.PNG)
+#### 2. 용어 기준 보조 색인 파티셔닝
+
+---
+
+### 파티션 재균형화
+
+#### 1. 해시값에 Mod N 연산 수행
+
+#### 2. 파티션 개수 고정 
+![6](https://user-images.githubusercontent.com/12586821/59677736-8bd51480-9205-11e9-81e1-12f1c7fd0c5b.PNG)
+
+#### 3. 동적 파티셔닝
+
+#### 4. 노드 비례 파티셔닝
+
+#### 운영: 자동 재균형화와 수동 재균형화
+
+---
+
+### 요청 라우팅
+![7](https://user-images.githubusercontent.com/12586821/59677739-8c6dab00-9205-11e9-8146-3959b28c2da8.PNG)
+
+#### 병렬 질의 실행
+![8](https://user-images.githubusercontent.com/12586821/59677740-8c6dab00-9205-11e9-8ef1-c1b4185dad7b.PNG)
+
