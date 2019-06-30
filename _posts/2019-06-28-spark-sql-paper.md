@@ -34,7 +34,7 @@ Spark SQL이란 ?
 2. ML이나 Graph Processing 같은 분석은 relational system에서 작업하기가 어려움
 > - 논문에 따르면 대부분의 파이프라인은 relational query과 procedural 알고리즘을 이루어져 있다고 함 
 
-근데.. relational과 precedural 시스템은 분리가 되어있어 개발자는 하나의 패러다임을 골라야함 
+근데.. relational과 procedural 시스템은 분리가 되어있어 개발자는 하나의 패러다임을 골라야함 
 > - 그래서 이 논문에서는 relational, procedural을 함께사용할 수 있는 **Spark SQL**에 대해 설명하고자 함
 
 그렇다면 어떻게 두 모델(relational, procedural)의 gap을 어떻게 극복했는가?
@@ -79,6 +79,67 @@ Shark
 
 ## 3. Programming Interface
 
+<img width="672" alt="image" src="https://user-images.githubusercontent.com/12586821/60395948-0727b600-9b76-11e9-83f8-1a084fc6994c.png">
+
+### DataFrame API
+- distributed collections of rows with same schema
+- RDB의 데이터블과 같은 개념이고, RDD와 같이 조작가능함 
+> - 그러나, RDD와 다르게 Dataframe의 스키마 정보를 가지고 있고, 다양한 relational operation이 가능하고, 이에 따라 최적화가 진행됌
+
+Dataframe Operations
+
+<img width="631" alt="image" src="https://user-images.githubusercontent.com/12586821/60396062-abf6c300-9b77-11e9-98f6-f438b1778cc4.png">
+
+- employees : DataFrame
+- employees("depId") : expression 
+
+expression object
+> - 다양한 operator가 있을 수 있음
+> - 모든 operator은 AST(Abstract Syntax Tree)로 만들어지고, AST는 catalyst에게 최적화를 위해 넘겨짐
+
+### Dataframes VS Relational Query Language
+
+dataframe은 relational query (SQL, pig)와 같은 operation을 제공
+
+한 사용자는 DataFrame API가 "중간 결과를 명명 할 수있는 것을 제외하고는 SQL과 같이 간결하고 선언적"이라고 말함
+> - “concise and declarative like SQL, except I can name intermediate results”
+> - 연산을 구조화하고 중간 단계를 디버그하는 것이 더 쉬운 방법을 언급함
+
+DataFrames에서의 프로그래밍을 단순화하기 위해 API는 logical result을 열심히 계산함
+> - 즉, 표현식에 사용 된 열 이름이 기본 테이블에 있는지 여부나 해당 데이터 유형이 적절한 지 여부를 식별함
+
+따라서 Spark SQL은 사용자가 실행될 때까지 기다리지 않고 유효하지 않은 코드 행을 입력하자마자 오류를 냄
+> - 긴 SQL 문보다 작업하기가 쉽게 함
+
+### Querying Native Datasets
+
+real-world pipeline
+> - 다양한 이종의 데이터 소스에서 데이터를 추출하고 다른 프로그래밍 알고리즘을 이용해 연산함 
+
+Spark SQL은 기존의 procedural Spark Code와 상호운요ㅇ하기 위해, RDD을 Dataframe으로 변환할 수 이음
+> - Spark SQL은 reflection을 이용해, object의 스키마를 추론하고, JavaBeans, Scala Case class로 매핑할 수 있음 
+
+내부적으로 Spark SQL은 RDD를 가리키는 논리적 데이터 스캔 연산자를 생성함 (logical data scan operator)
+- 이는 native object의 필드에 액세스하는 physical 연산자로 컴파일됌
+
+
+이것은  객체 관계형 매핑 (ORM)과 매우 다름
+> - ORM은 종종 전체 개체를 다른 형식으로 변환하는 값 비싼 변환임
+> - 하지만 Spark SQL은 각 쿼리에 사용 된 필드만 추출하여 기본 Object에 접근함
+
+네이티브 데이터 세트를 쿼리하는 기능을 사용하면 기존 Spark 프로그램 내에서 최적화 된 관계형 작업을 실행할 수 있음
+
+RDD와 외부 구조화 된 데이터를 간단하게 결합 할 수 있음
+> - RDD와 Hive의 테이블을 결합
+
+
+### In-Memory Caching
+
+Spark SQL은 Shark와 마찬가지로 Columnar storage를 사용하여 메모리에서 데이터를 캐시할 수 있음 
+
+데이터를 JVM 객체로 저장하는 Spark의 기본 캐시와 약간 다름
+- Columnar storage 캐시는 dictionary encoding 및 run-length encoding 같은 Columnar 압축 스키마를 적용함
+> - 이는 메모리 풋 프린트를 한 단계 줄임
 ## 4. Catalyst Optimizer
 
 ## 5. Advanced Analystic Features
