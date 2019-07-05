@@ -11,12 +11,14 @@ cover: "/assets/spark.png"
 ## Spark SQL: Relational Data Processing in Spark
 
 Spark SQL이란 ?
- - Shark에 대한 경험을 토대로 Spark 프로그래머가 관계형 처리, Relational Processing(e.g) 선언적 쿼리 및 최적화 된 스토리지) 이점을 활용할 수 있게 해줌
+ - Shark에 대한 경험을 토대로 Spark 프로그래머가 관계형 처리, Relational Processing(e.g. 선언적 쿼리 및 최적화 된 스토리지) 이점을 활용할 수 있게 해줌
  - SQL 사용자가 Spark에서 복잡한 분석 라이브러리를 호출 할 수 있도fhr  ka
 
 이전 시스템과 비교해, Spark SQL에 추가된 두가지 기능
 1. DataFrame API를 통해 Procedural processing, relational processing을 통합해 사용할 수 있음  
 2. Scala로 정의된 Optimizer, Catalyst를 쉽게 규칙을 추가하고 확장할 수 있음
+
+---
 
 ## 1. Introduction
 
@@ -140,8 +142,12 @@ Spark SQL은 Shark와 마찬가지로 Columnar storage를 사용하여 메모리
 데이터를 JVM 객체로 저장하는 Spark의 기본 캐시와 약간 다름
 - Columnar storage 캐시는 dictionary encoding 및 run-length encoding 같은 Columnar 압축 스키마를 적용함
 > - 이는 메모리 풋 프린트를 한 단계 줄임
+
+---
+
+
 ## 4. Catalyst Optimizer
 
-## 5. Advanced Analystic Features
+## 5. Advanced Analytic Features
 
 ## 6. Evaluation
