@@ -148,6 +148,101 @@ Spark SQL은 Shark와 마찬가지로 Columnar storage를 사용하여 메모리
 
 ## 4. Catalyst Optimizer
 
+Spark SQL을 위한 확장가능한 optimizer인 Catalyst를 scala로 구현함
+1. 쉽게 최적화 기능을 추가할 수 있음
+2. 외부의 데이터 저장소로 부터의 기능도 확장할 수 있음
+> - push filtering 또는 aggregation을 외부 저장소에 적용할 수 있음
+
+과거에는 Optimizer을 확장하기 위해서는 rule을 만들기 위한 도메인 지식과, 해당 코드를 translate할 optimizer complier에 대한 지식이 필요
+> - 유지보수와 learning curve가 있음
+
+하지만 Catalyst는 scala의 Pattern-matching을 통해 쉽게 구현할 수 있음
+
+총 4단계를 통해 Catalyst는 최적화하며, operator를 tree로 구현하고, rule을 통해 tree를 조작하는 형태
+1. analysis
+2. logical optimization
+3. physical planning
+4. code generation (= query를 complie해서 Java bytecode로 변)
+
+### Trees
+
+Catalyst의 data type는 node object로 구성된 tree
+각 노드는 
+ > - 각 노드의 타입을 가지고, 자식을 가질 수 도, 안가질 수 도 있음 
+ > -  Scala의 TreeNode Class의 subClass로 구현되어있음
+ 
+<img width="561" alt="image" src="https://user-images.githubusercontent.com/12586821/60751400-dbca1e80-9fee-11e9-92b7-ce286e335907.png">
+<img width="705" alt="image" src="https://user-images.githubusercontent.com/12586821/60751434-4da26800-9fef-11e9-8f06-a1dd65432eb8.png">
+
+### Rules
+
+Scala Object인 Tree는 Rule에 의해 조작되어새로운 Tree로 변환됌
+> - Rule이 적용되는 방법은 일반적으로 Pattern matching으로 진행되며, 트리를 변환함 (transform)
+
+Catalyst에서 tree는 transform 함수를 통해 tree의 모든 노드를 재귀로 순회하면서 pattern matching을 진행함 
+
+transform 함수는 partial function으로, input에 대한 가능한 연산을 모두 처리함 
+> - 그래서, Rule은 같은 transform을 호출하더라도, 다양한 pattern을 매칭시킬 수 있고, 여러 transformation을 간결하게 구현할 수 있음
+
+<img width="625" alt="image" src="https://user-images.githubusercontent.com/12586821/60751467-1bddd100-9ff0-11e9-858c-de859301f36a.png">
+
+
+rule은 tree을 모두 transform하는 동안 여러번 실행되고, Catalyst는 rule을 모아 batch로 처리함
+> - 각 batch는 더 이상 변형할 것이 없을 때까지 연산함(fixed point 라고함)
+
+e.g. 첫번째 Batch는 모든 expression을 분석해, 각각 타입을 할당함
+다음 batch는 각 타입별로 constant folding을 연산함 
+그 이후, 새로운 tree에 대한 sanity check을 실행함 ( 모든 attribute가 data type이 할당되었는가? )
+
+rule의 조건은 모두 scala code이며, immutable한 tree에 functional transformation은 debug + 병렬적으로 실행이 가능함
+
+### Using Catalysts in Spark SQL
+
+총 4단계로 진행
+<img width="1328" alt="image" src="https://user-images.githubusercontent.com/12586821/60751533-aecb3b00-9ff1-11e9-94a9-7c8624db1262.png">
+
+1. Analyzing a Logical Plan
+2. Logical Plan Optimization
+3. Physical Planning
+4. Code Generation, complie query to Java Bytecode
+
+3번째, Physical Planning 단계에서는 여러개의 plan을 만들고 cost 기반으로 비교해 선택함
+
+3번쨰를 제외하고는 모두 rule-based로 연산함
+
+#### 1. Analysis
+
+spark SQL은 Catalyst Rule과 Catalog object을 사용해 attribute을 해석함 (약 1000줄 정도 )
+즉, unresolved logical plan, SQL Parser로 부터 반환된 AST트리 또는 API를 통해 구성된 DataFrame에 대해 attribute을 가져오거나, 각 data type을 추론함
+
+e.g. SELECT col FROM sales
+<img width="662" alt="image" src="https://user-images.githubusercontent.com/12586821/60751611-29488a80-9ff3-11e9-95b1-3a23e88153e6.png">
+
+#### 2. Logical Optimization
+Rule-based optmization으로 동작함  ( 약 800줄 정도)
+> - constant folding
+> - predicate pushdown
+> - projection prunning
+> - null propagation
+> - boolean expression simplification
+> - etc..
+
+<img width="1328" alt="image" src="https://user-images.githubusercontent.com/12586821/60751539-c4406500-9ff1-11e9-889e-c28f8b239178.png">
+
+#### 3. Physical Planning
+Logical Plan기반으로, Spark Execution Engine을 통해 한개 이상의 Physical Plan을 만듬 ( 약 500줄 정도 )
+> - cost기준으로 하나 선택함, Only! Join 알고리즘을 선택함
+> - relation이 작으면, Spark SQL은 peer-to-peer broadcast로 구현된 Broadcast Join을 선택함
+> > - 테이블이 cache되어 있거나, external file로 부터 읽을 때나, limit같은 subquery가 있을 떄 테이블의 사이즈를 측정함
+
+Rule based optimization을 진행함
+> - pipelining projection 또는 filter 
+> - logcial Plan에 predicate or projection pushdown이 가능하다면 강제할 수 있음 
+
+#### 4. Code Generation
+<img width="1328" alt="image" src="https://user-images.githubusercontent.com/12586821/60751543-d3bfae00-9ff1-11e9-8677-35fa6393c205.png">
+
+
 ## 5. Advanced Analytic Features
 
 ## 6. Evaluation
