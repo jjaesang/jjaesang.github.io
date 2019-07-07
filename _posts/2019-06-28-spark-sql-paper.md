@@ -240,8 +240,20 @@ Rule based optimization을 진행함
 > - logcial Plan에 predicate or projection pushdown이 가능하다면 강제할 수 있음 
 
 #### 4. Code Generation
+각 머신에서 실행될 수 있게 Java bytecode로 변환
+> - Spark SQL 작업은 인메모리의 데이터셋의 CPU-Bound 작업이 종종 있어, 빠르게 Code Generation을 하고자 했음
+> - 그래서 Scala의 특수 기능이라고 하는 Quasiquotes을 사용함
+
+Quasiquotes는 스칼라 (Scala) 언어에서 AST (Abstract Syntax Tree)를 프로그래밍 방식으로 생성 할 수 있음
+- 런타임시 스칼라 컴파일러에 전달되어 바이트 코드를 생성함
+
+Catalyst를 사용하여 SQL의 표현식을 나타내는 트리를 스칼라 코드의 AST로 변환하여 해당 표현식을 평가 한 다음 생성 된 코드를 컴파일하고 실행함
 <img width="1328" alt="image" src="https://user-images.githubusercontent.com/12586821/60751543-d3bfae00-9ff1-11e9-8677-35fa6393c205.png">
 
+Quasiquotes는 컴파일시, type check을 진행하고 적절한 AST 또는 Literal만 대체되어 문자열 연결보다 훨씬 유용하게 사용함
+> - 런타임에 Scala 파서를 실행하는 대신 직접 스칼라 AST로 변환
+> - Catalyst가 누락 한 표현식 수준 최적화가있는 경우 결과 코드가 Scala 컴파일러에 의해 추가로 최적화 진행
+Quasiquotes는 손으로 튜닝 한 프로그램과 비슷한 성능의 코드를 생성 할 수 있음!
 
 ## 5. Advanced Analytic Features
 
