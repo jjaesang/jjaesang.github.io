@@ -120,6 +120,16 @@ transaction coordinator와 transaction log는 transaction의 state를 관리
 - Up to -20% disk utilization.. 
 - batch로 전송시, 더 줄일 수 있음
 
+#### Record Format과 Batch Records Format 의 변경사항 
+
+![batch](https://user-images.githubusercontent.com/12586821/60875272-78e9b900-a274-11e9-9122-10fbba351cb7.png)
+![record](https://user-images.githubusercontent.com/12586821/60875274-78e9b900-a274-11e9-8654-4997e5557b93.png)
+
+그래서..
+![image](https://user-images.githubusercontent.com/12586821/60875391-b8180a00-a274-11e9-81d1-e5054fb12b39.png)
+이만큼 아낄 수 있음!!
+- 작은 메세지로 구성된 큰 배치에 대해 메모리공간을 아낄 수 있음
+- 배치 사이즈가 작아지면서, IO Bound에 대한 Throughput은 증가!
 **record랑 batch record format 바뀐 것 꼭 추가할 것**
 ---
 
