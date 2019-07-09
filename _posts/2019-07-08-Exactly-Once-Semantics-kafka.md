@@ -130,7 +130,7 @@ transaction coordinator와 transaction log는 transaction의 state를 관리
 이만큼 아낄 수 있음!!
 - 작은 메세지로 구성된 큰 배치에 대해 메모리공간을 아낄 수 있음
 - 배치 사이즈가 작아지면서, IO Bound에 대한 Throughput은 증가!
-**record랑 batch record format 바뀐 것 꼭 추가할 것**
+
 ---
 
 ### Configuration
