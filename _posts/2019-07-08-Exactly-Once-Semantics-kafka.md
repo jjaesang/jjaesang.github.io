@@ -18,9 +18,9 @@ At least once semantics로 중복은 sink단에서 또는 애플리케이션 로
 기회가 된다면 Exactly Once semantic으로 문제를 풀어내고, 거기서 느끼고 경험한 것을 제대로 정리해보고 싶다!
 
 관련 참고 자료
-[Introducing Exactly Once Semantics in Apache Kafka](https://www.confluent.io/kafka-summit-nyc17/introducing-exactly-once-semantics-in-apache-kafka/)
-[Exactly once Semantics are Possible: Here’s How Kafka Does it](https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/)
-[Transactions in Apache Kafka](https://www.confluent.io/blog/transactions-apache-kafka/)
+- [Introducing Exactly Once Semantics in Apache Kafka](https://www.confluent.io/kafka-summit-nyc17/introducing-exactly-once-semantics-in-apache-kafka/)
+- [Exactly once Semantics are Possible: Here’s How Kafka Does it](https://www.confluent.io/blog/exactly-once-semantics-are-possible-heres-how-apache-kafka-does-it/)
+- [Transactions in Apache Kafka](https://www.confluent.io/blog/transactions-apache-kafka/)
 
 
 ### At least once in order delivery per partition
