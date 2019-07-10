@@ -26,28 +26,32 @@ Processor
 Controller Service
 - DistributedMapCacheClientService 
 - DistributedMapCacheServer
-
 ---
+
 ### PutDistributedMapCache Processor
 - 캐시할 key/value을 넣는 Processor
 - key는 flowfile의 Attribute값 
 > - Processor의 'Cache Entry Identifier'에 명시한 Attribute
 - value는 flowfile의 Content값
-
+- [github](https://github.com/apache/nifi/blob/master/nifi-nar-bundles/nifi-standard-bundle/nifi-standard-processors/src/main/java/org/apache/nifi/processors/standard/PutDistributedMapCache.java)
 ---
+
 ### FetchDistributedMapCache Processor
 - key,flowfile의 Attribute값으로 값을 가져와서 새로운 Attribute로 붙임 
 > - key는 Processor의 'Cache Entry Identifier'에 명시한 Attribute
 > - cache된 정보를 가져와 추가할 Attribute 이름 'Put Cache Value In Attribute'
-
+- [github](https://github.com/apache/nifi/blob/master/nifi-nar-bundles/nifi-standard-bundle/nifi-standard-processors/src/main/java/org/apache/nifi/processors/standard/FetchDistributedMapCache.java)
 ---
+
 ### DistributedMapCacheClientService (Controller Service)
 - DistributedMapCacheServer와 통신하는 Client
 - Cluster끼리 Cache된 Map 공유하기 위함 
 - 설정값은 DistributedMapCacheServer의 hostname과 port만 설정함
 > - Cluster 환경에서는 hostname을 localhost로 설정
+- [github](https://github.com/apache/nifi/tree/master/nifi-nar-bundles/nifi-standard-services/nifi-distributed-cache-services-bundle/nifi-distributed-cache-client-service/src/main/java/org/apache/nifi/distributed/cache/client)
 
 ---
+
 ### DistributedMapCacheServer (Controller Service)
 
 - Socket으로 캐시된 맵에 접근할 수 있게함 
@@ -67,7 +71,10 @@ Controller Service
 - Eviction Strategy
 > - FIFO
 > - Least Recently Used (LRU)
-> - Least Frequently User (LFU)
+> - Least Frequently Used (LFU)
+
+- [github](https://github.com/apache/nifi/tree/master/nifi-nar-bundles/nifi-standard-services/nifi-distributed-cache-services-bundle/nifi-distributed-cache-server/src/main/java/org/apache/nifi/distributed/cache/server)
+
 
 ---
 
@@ -78,9 +85,9 @@ Controller Service
 
 간단하게 Map 만들고, Evict하는 함수만 보면 다음과 같다
 - 생각보다 소스코드가 간결해서 좋았음!
+
+
 ```java
-
-
 public class SimpleMapCache implements MapCache {
 
     private static final Logger logger = LoggerFactory.getLogger(SimpleMapCache.class);
@@ -128,6 +135,7 @@ public class SimpleMapCache implements MapCache {
     //.....
     //....
     }
+    
 ```
 
 
