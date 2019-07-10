@@ -136,7 +136,7 @@ restart:
   variables:
       GIT_STRATEGY: none
   script:
-   - echo "RESTART Nifi Services for update latest custom nar.. "
+   - echo "RESTART NiFi Services for update latest custom nar.. "
    - ssh -p6879 ${AMBARI_SERVER} "echo ${NIFI_PASSWORD} | sudo -S sh ~/nifi_rest_api.sh restart "
   when: manual
   tags:

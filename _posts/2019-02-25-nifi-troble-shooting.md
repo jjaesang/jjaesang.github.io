@@ -1,14 +1,14 @@
 ---
 layout: post
-title:  "[Nifi] Throughtput 향상을 위한 작업들 "
+title:  "[NiFi] Throughtput 향상을 위한 작업들 "
 date: 2019-02-27 16:15:12
-categories: Nifi 
+categories: NiFi 
 author : Jaesang Lim
 tag: Spark
 cover: "/assets/instacode.png"
 ---
 
-> Nifi에서 초당 처리량을 보장하면서, 시스템 리소스(CPU/Memory)를 효율적으로 사용하고자 진행했던 내용들 정리
+> NiFi에서 초당 처리량을 보장하면서, 시스템 리소스(CPU/Memory)를 효율적으로 사용하고자 진행했던 내용들 정리
 
 ### 요구사항
 - 초당 약 5000건 이상의 로그데이터를 안정성이 있게 처리
@@ -20,9 +20,9 @@ cover: "/assets/instacode.png"
 - 유입되는 데이터양에 비해, 처리량이 늦어지면서 시스템 리소스( CPU / Memory )의 비효율적 사용
 
 ### 해결방안
-- Nifi는 사이즈가 작은 다수의 flowfile보다 사이즈가 큰 적은 flowfile를 처리하는데 더 효율적
+- NiFi는 사이즈가 작은 다수의 flowfile보다 사이즈가 큰 적은 flowfile를 처리하는데 더 효율적
 - swap 설정값 조정 - nifi.queue.swap.threshold
-- Nifi Provenance Repository 구현체를 WriteAheadProvenanceRepsitory로 설정
+- NiFi Provenance Repository 구현체를 WriteAheadProvenanceRepsitory로 설정
 
 ### 결과
 - JVM Heap Memory 
@@ -73,7 +73,7 @@ fileFileList.each { flowfile ->
 
 - ‘Message Demarcator’ 설정하지 않을 시, 한개의 flowfile의 content에는 하나의 로그메세지가 담겨있음
 - 즉, 100개의 flowfile이라면 총 100개의 로그를 의미
-- 하지만 Nifi는 Performance 측면에서 사이즈가 작은 많은 flowfile 보다는 사이즈가 큰 적은 flowfile 가 더 효율적
+- 하지만 NiFi는 Performance 측면에서 사이즈가 작은 많은 flowfile 보다는 사이즈가 큰 적은 flowfile 가 더 효율적
 - Message Demarcator 설정 후, 하나의 flowfile 내 다수의 로그가 포함되어 있음
 - 이에 따라 ValidateRecord Process의 처리속도가 향상
 
@@ -81,7 +81,7 @@ fileFileList.each { flowfile ->
 
 ### 해결방안 - CONFIG 측면 
 
-#### 1. Nifi Queue Swap threshold 변경 ( default 20,000 -> 100,000 )
+#### 1. NiFi Queue Swap threshold 변경 ( default 20,000 -> 100,000 )
 
 - nifi.queue.swap.threshold
 - 초당 약, 4000~5000개의 flowfile이 들어올 시, 몇 초만 지나도 queue에 쌓인 flowfile 들이 swap이 발생하여 처리 속도에 현저히 느려짐
@@ -146,7 +146,7 @@ fileFileList.each { flowfile ->
 
   - 각 prov evnet는 2개의 Map를 가짐 ( evnet 발생 전 attribute, 후 udpate된 attribute )
   - process에서 relation으로 나간 후 저장하지되지 않고, seession이 commit 될 때, attribute 값을 저장
-  - Nifi가 실행중일 때는, 16개의 Provenance log file이 롤링되는 그룹으로 지정됌 ( 16개를 늘린다면 throughtput 증가)
+  - NiFi가 실행중일 때는, 16개의 Provenance log file이 롤링되는 그룹으로 지정됌 ( 16개를 늘린다면 throughtput 증가)
   - log 파일은 30초마다 롤링 = 새롭게 생성된 provenace 이벤트는 새로운 16개의 로그파일 그룹에 쓰기 시작하고 원본 로그는 저장
   
 

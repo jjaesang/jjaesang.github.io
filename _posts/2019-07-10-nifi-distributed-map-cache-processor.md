@@ -4,7 +4,7 @@ title:  "[NiFi] DistributedMapCache 프로세서 "
 date: 2019-07-10 17:53:12
 categories: NiFi 
 author : Jaesang Lim
-tag: Nifi
+tag: NiFi
 cover: "/assets/instacode.png"
 ---
 

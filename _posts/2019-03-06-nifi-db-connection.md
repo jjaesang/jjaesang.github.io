@@ -1,14 +1,14 @@
 ---
 layout: post
-title:  "[Nifi] Nifi을 이용한 Database 연동 "
+title:  "[NiFi] NiFi을 이용한 Database 연동 "
 date: 2019-03-06 23:15:12
-categories: Nifi 
+categories: NiFi 
 author : Jaesang Lim
-tag: Nifi
+tag: NiFi
 cover: "/assets/instacode.png"
 ---
 
-- Nifi 내에서 처리된 데이터를 Kafka, Hdfs, Local FileSystem, DB , Elasticsearch 등 다양한 sink에 넣어야하는 케이스가 있음
+- NiFi 내에서 처리된 데이터를 Kafka, Hdfs, Local FileSystem, DB , Elasticsearch 등 다양한 sink에 넣어야하는 케이스가 있음
 - Elasticsearch 는 PutElasticsearchHttpRecord 프로세스 하나로 충분히 가능함
 - 하지만 DB에 대해서는 Controller Service를 이용하여 DB Connection Pool를 관리하고, 이와 관련된 프로세서도 몇 개 있음
 - 그 중 3개에 대한 프로세서를 정리하고자함.

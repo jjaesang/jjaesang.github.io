@@ -1,14 +1,14 @@
 ---
 layout: post
-title:  "[Nifi] Nifi 권장 설정값 "
+title:  "[NiFi] NiFi 권장 설정값 "
 date: 2019-03-29 16:15:12
-categories: Nifi 
+categories: NiFi 
 author : Jaesang Lim
 tag: Spark
 cover: "/assets/instacode.png"
 ---
 
-- Nifi로 엄청 삽질했다.. 프로세서 구현은 매우 간단하고 고민해야할 사항이 한정적이였는데
+- NiFi로 엄청 삽질했다.. 프로세서 구현은 매우 간단하고 고민해야할 사항이 한정적이였는데
 - 실제 클러스터 환경에서 돌려보니, 재시작만 해도 JVM Heap 사용량이 100% 올라가고.. 
 - LogLevel도 TRACE로 설정해도 딱히 나오는 것도 없고.. 
 > - 이 상황에서 유용한 JVM GC 모니터링하는 명령어를 배웠다 ㅎㅎ
@@ -22,7 +22,7 @@ cover: "/assets/instacode.png"
 > - [HDF/NIFI Best practices](https://community.hortonworks.com/articles/7882/hdfnifi-best-practices-for-setting-up-a-high-perfo.html)
 
 
-### Nifi 설정값 
+### NiFi 설정값 
 
 ##### nifi.flow.configuration.file 
  > - 화면에 보이는 그래프 저장 경로
@@ -71,7 +71,7 @@ cover: "/assets/instacode.png"
   
 ##### nifi.provenance.repository.implementation=org.apache.nifi.provenance.WriteAheadProvenanceRepository 
   > - 이거 사용할 거면 bootstrap.conf에서 G1GC는 주석처리할 것
-  > - 이거 관련해서 저번 Nifi 관련 블로그에 올렸었는데, G1GC에서의 문제점이 있다는 hortonworks 글을 보았음... ㅠㅠ
+  > - 이거 관련해서 저번 NiFi 관련 블로그에 올렸었는데, G1GC에서의 문제점이 있다는 hortonworks 글을 보았음... ㅠㅠ
   > - G1GC 대신, CMS GC로 선택했음 
   > - java.arg.13=‐XX:+UseConcMarkSweepGC
 

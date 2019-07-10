@@ -1,10 +1,10 @@
 ---
 layout: post
-title:  "[Nifi] Nifi Concept #2 "
+title:  "[NiFi] NiFi Concept #2 "
 date: 2019-02-25 20:15:12
-categories: Nifi 
+categories: NiFi 
 author : Jaesang Lim
-tag: Nifi
+tag: NiFi
 cover: "/assets/instacode.png"
 ---
 

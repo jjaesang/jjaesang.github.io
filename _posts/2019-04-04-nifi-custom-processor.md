@@ -1,18 +1,18 @@
 ---
 layout: post
-title:  "[Nifi] Nifi Custom Processor 만들기 "
+title:  "[NiFi] NiFi Custom Processor 만들기 "
 date: 2019-04-04 17:53:12
-categories: Nifi 
+categories: NiFi 
 author : Jaesang Lim
-tag: Nifi
+tag: NiFi
 cover: "/assets/instacode.png"
 ---
 
 - 시작은 KafkaConsumer를 디버깅하기 위해 만들었지만...
 - 현재는 nifi에서 제공하는 KafkaConsumer와 동작은 같지만, Consumer Config를 좀 더 유연하게 관리할 수 있도록 Custom Processor를 만들어서 사용중이다.
-- 그래서 이 기회에 Nifi Consumer Processor를 빌드하는 방법에 대해 정리하고자 한다. 
+- 그래서 이 기회에 NiFi Consumer Processor를 빌드하는 방법에 대해 정리하고자 한다. 
 
-# Nifi Custom Processor 
+# NiFi Custom Processor 
 
 ## Requirements
 - Maven
@@ -20,7 +20,7 @@ cover: "/assets/instacode.png"
 - Terminal / Git bash 
 
 
-## Step for Creating Custom Apache Nifi Processor
+## Step for Creating Custom Apache NiFi Processor
 #### 1. Maven Repository에서 미리 정의된 maven project template(=archetype)을 불러옴
 ```bash
 $ mvn archetype:generate
@@ -92,7 +92,7 @@ $ mvn clean install
 ```
 
 
-#### 9. 완성된 .nar을 Nifi의 lib에 넣고 Nifi 재시작
+#### 9. 완성된 .nar을 NiFi의 lib에 넣고 NiFi 재시작
 > - 재시작 시, nifi-app.log에서 몇개의 Nar파일이 있고, 업로드한다는 로그가 남음
 
-#### 10. Nifi Processor 탭에서 정상적으로 Import되는지 확인
+#### 10. NiFi Processor 탭에서 정상적으로 Import되는지 확인
