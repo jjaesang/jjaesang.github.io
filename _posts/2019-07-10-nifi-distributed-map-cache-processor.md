@@ -14,11 +14,12 @@ NiFi 관련 사내 세미나도 마무리되었고, 이제 NiFi로 유연하게 
 
 매번 DB가서 해당 메타정보를 가져온다던지, 아니면 배치로 테이블로 Join해서 enrich하는 방법도 있겠지만, Data Flow을 한 곳에서 처리하고 싶어서 ! 
 
-
-# DistributedMapCache Processor 
 ---
 
+# DistributedMapCache Processor 
+
 ## DistributedMapCache를 사용하기 위해 필요한 Processor 및 Controller Services
+
 Processor
 - PutDistributedMapCache 
 - FetchDistributedMapCache
@@ -26,28 +27,37 @@ Processor
 Controller Service
 - DistributedMapCacheClientService 
 - DistributedMapCacheServer
+
 ---
 
 ### PutDistributedMapCache Processor
+
 - 캐시할 key/value을 넣는 Processor
 - key는 flowfile의 Attribute값 
 > - Processor의 'Cache Entry Identifier'에 명시한 Attribute
 - value는 flowfile의 Content값
+
 - [github](https://github.com/apache/nifi/blob/master/nifi-nar-bundles/nifi-standard-bundle/nifi-standard-processors/src/main/java/org/apache/nifi/processors/standard/PutDistributedMapCache.java)
+
 ---
 
 ### FetchDistributedMapCache Processor
+
 - key,flowfile의 Attribute값으로 값을 가져와서 새로운 Attribute로 붙임 
 > - key는 Processor의 'Cache Entry Identifier'에 명시한 Attribute
 > - cache된 정보를 가져와 추가할 Attribute 이름 'Put Cache Value In Attribute'
+
 - [github](https://github.com/apache/nifi/blob/master/nifi-nar-bundles/nifi-standard-bundle/nifi-standard-processors/src/main/java/org/apache/nifi/processors/standard/FetchDistributedMapCache.java)
+
 ---
 
 ### DistributedMapCacheClientService (Controller Service)
+
 - DistributedMapCacheServer와 통신하는 Client
 - Cluster끼리 Cache된 Map 공유하기 위함 
 - 설정값은 DistributedMapCacheServer의 hostname과 port만 설정함
 > - Cluster 환경에서는 hostname을 localhost로 설정
+
 - [github](https://github.com/apache/nifi/tree/master/nifi-nar-bundles/nifi-standard-services/nifi-distributed-cache-services-bundle/nifi-distributed-cache-client-service/src/main/java/org/apache/nifi/distributed/cache/client)
 
 ---
