@@ -2,9 +2,9 @@
 layout: post
 title:  "Spark Streaming Configuration"
 date: 2018-05-30 13:05:12
-categories: Spark Streaming
+categories: Spark-Streaming
 author : Jaesang Lim
-tag: Spark Streaming
+tag: Spark-Streaming
 cover: "/assets/spark.png"
 ---
 ### Spark Streaming Configuration
