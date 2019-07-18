@@ -259,4 +259,3 @@ Quasiquotes는 손으로 튜닝 한 프로그램과 비슷한 성능의 코드�
 
 ## 5. Advanced Analytic Features
 
-## 6. Evaluation
