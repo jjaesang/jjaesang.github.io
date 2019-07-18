@@ -8,6 +8,9 @@ tag: Data-Intensive-Application
 cover: "/assets/instacode.png"
 ---
 
+미완성.. 
+
+
 ## 복제
 '데이터 중심 애플리케이션 설계'를 읽고 정리하고자함
 
