@@ -12,7 +12,7 @@ cover: "/assets/instacode.png"
 > - 모두 Javadoc을 보고 작성
 
 ## BlockingQueue 구현 클래스들
-- [각 구현체들은 인터페이스 javadoc에 다 있음](https://docs.oracle.com/javase/8/docs/api/?java/util/concurrent/BlockingQueue.html)
+[각 구현체들은 인터페이스 javadoc에 다 있음](https://docs.oracle.com/javase/8/docs/api/?java/util/concurrent/BlockingQueue.html)
 
 - LinkedBlockingQueue
 - ArrayBlockingQueue
@@ -22,6 +22,7 @@ cover: "/assets/instacode.png"
 - LinkedTransferQueue
 - LinkedBlockingDeque
 
+---
 
 ## LinkedBlockingQueue
 [링크](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/LinkedBlockingQueue.html)
@@ -51,6 +52,8 @@ cover: "/assets/instacode.png"
 > - Producer와 Consumer를 순서하기 위한 정책 제공
 > - 기본적으로는 보장하지 않고, true로 설정하면 Thread의 접근을 FIFO 순서로 허용함
 > - Throughput을 감소시키지만, 데이터의 변동성과 starvation을 피할 수 있음 
+
+
 ```java
     /**
      * Creates an {@code ArrayBlockingQueue} with the given (fixed)
@@ -81,8 +84,8 @@ cover: "/assets/instacode.png"
         notEmpty = lock.newCondition();
         notFull =  lock.newCondition();
     }
-    
 ```
+
 
 ---
 
@@ -95,7 +98,7 @@ cover: "/assets/instacode.png"
 > - 순서를 보장하기 위해서는 **Arrays.sort(pq.toArray())** , 이렇게 지정해야함
 - **(중요)** 같은 우선순위를 가지는 element에 대해서는 순서를 보장하지 않음
 > - 이를 위해서 custom class, comparator, secondary key를 구성해야함 
-> - 
+
   ```java
    class FIFOEntry<E extends Comparable<? super E>>
        implements Comparable<FIFOEntry<E>> {
@@ -115,6 +118,7 @@ cover: "/assets/instacode.png"
      }
    }
   ```
+  
 
 - drainTo 메소드로 데이터를 삭제하고, 다른 collection을 넣을 수 있음
 - 초기 capacity는 11로 되어있고 자료구조는 BalancedBinaryHeap을 사용함
@@ -172,8 +176,10 @@ cover: "/assets/instacode.png"
 ## SynchronousQueue
 [링크](https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/SynchronousQueue.html)
 
-- 1개만 가지는 큐..?
+- 삽입 작업이 다른 스레드에서 해당 제거 작업을 할때까지 기다리는 Blocking Queue
+> - 반대도 마찬가지
  
+- 구현체가 좀 신기해서 이건 내일 .. ㅠㅠ
 
 --- 
 ## DelayQueue
@@ -181,6 +187,9 @@ cover: "/assets/instacode.png"
 
 - Delay을 가진 큐로, 소스보니 PriorityQueue을 가짐
 
+
+
+---
 
 SynchronousQueue / DelayQueue는 추가예정 
 
