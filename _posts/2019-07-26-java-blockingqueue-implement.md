@@ -192,8 +192,6 @@ SynchronousQueue는 내부에서 Transferer라는 이름의 객체를 사용해�
 > - Stack기반으로 관리 (fair 정책을 true로 설정시 )
 > - Queue기반으로 관리 
 
-[출처] java.util.concurrent.SynchronousQueue 분석(1)|작성자 쫌조
-
 ```java
     /**
      * Creates a {@code SynchronousQueue} with the specified fairness policy.
@@ -211,6 +209,7 @@ SynchronousQueue는 내부에서 Transferer라는 이름의 객체를 사용해�
 - Thread가 대기하는 상황은 해당 Item에 대해 매칭될 상대방 Thread가 없는 경우
 > - 즉, 같은 종류의 Thread가 모인 경우에만 대기 Thread 리스트가 생기고, 다른 종류의 Thread가 도착할 때, 대기중인 것 중 Stack / Queue 기반으로 매칭 시켜줌 
 
+---
 
 ### TransferStack
 
@@ -230,7 +229,7 @@ SynchronousQueue는 내부에서 Transferer라는 이름의 객체를 사용해�
 
 - fulfill이 수행되는 동안에는 Top에는 fulfill mode의 Thread가 있는 상태가 되고 새로운 Thread가 SynchronousQueue에 도착했을 때도 Top에는 fulfill mode의 Thread가 존재하는 것을 확인하므로
  Thread는 자신을 Stack에 삽입하는 동작을 보류함
-- 그리고 fulfill이 끝나면 자신을 포함해서 바로 아래에 있는 fulfill을 수행한 상대방 Thread까지 같이 Stack에서 제거하는 
+- 그리고 fulfill이 끝나면 자신을 포함해서 바로 아래에 있는 fulfill을 수행한 상대방 Thread까지 같이 Stack에서 제거함k
 
 TransferStack의 transfer 메소드
 
@@ -318,6 +317,7 @@ TransferStack의 transfer 메소드
         }
 ```
 
+---
 
 ### TransferQueue
 
