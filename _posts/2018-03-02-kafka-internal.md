@@ -24,6 +24,16 @@ cover: "/assets/kafka_log.png"
  - partition과 replica들의 상태 관리
  - partition 재할당 관리
  - zookeeper /controller, /controller_epoch
+ 
+ 
+broker는 고유한 id을 가지고 있고, 이 id기반으로 주키퍼에 연결하여, ephemeral node로 연결
+> - emphemeral node여서 어떤 이유로 connection이 끊어지면 삭제되고, watch에 의해 broker가 사라진 것을 다른 브로커들도 알게됌
+> - 해당 broker을 다시 재시작하면, broker ephemeral node에느 사라지지만, isr같은 다른 자료구조에서 해당 노드가 기존에 있던 브로커임을 인지하고 재시작함
+
+controller는 먼저 등록한 Broker로 할당
+> - 만약 broker가 사라지면, controller의 watch로 인지하고 다른 Broker이 controller로 연결
+> - 이미 할당되었다면 node already exist로 1대만 controller로 split brain을 막음
+> - 모든 broker는 controller epoch number로 관리
 
  - partition 재할당 관리
 	- broker 삭제
@@ -53,7 +63,32 @@ cover: "/assets/kafka_log.png"
 	- 다음에 받기를 원하는 message의 offset이 포함
 		- leader는 offset을 보고 follower가 어디까지 message를 받았는지 확인 가능
 
+
+- replica가 isr인지 판단하는 것은 replica가 leader에게 요청함 Fetch request
+> - 이게 일정 시간동안 안오거나, 최신 Offset이 아닌 값에 대한 fetch request할 시, out-of-sync로 간주
+> - replica.lag.time.max.ms -> 10초
+
+- preferred leader
+> - 토픽 만들고 처음에 할당한 leader partition
+> - 이 정보를 계속 가지고 있는 이유는, 초기에 토픽을 만들 때 브러커당 partition 분배를 균형있게 해놔서
+> - auto.leader.rebalance.enable = true
+> - prefered leader가 현재 리더가 아닌데, isr이면 prefered-leader가 current leader로 변경
+> - isr의 첫번째 partition
+
+
 #### 3. Request Processing
+
+broker은 여러 thread와 두개의 queue를 가짐
+1. acceptor thread
+2. processing thread
+
+1. request queue
+2. response queue
+
+client의 acceptor thread을 통해 연결을 맺고, processor thread가 Request을 Request Queue에 저장
+> - 또 processor thread는 request queue에 있는 요청을 받아 처리하고 response queue에 저장
+
+
 
 - Request Protocol
 	- Kafka request의 형식 및 응답 형식에 대한 binary protocol
@@ -68,8 +103,8 @@ cover: "/assets/kafka_log.png"
 	1. Producer Request
 		- producer가 broker에 보내는 요청
 		- client가 작성한 message를 포함
-
-	2. Fetch Request
+			
+			2. Fetch Request
 		- consumer와 follower replica가 보내는 요청
 		- broker의 message를 fetch
 
