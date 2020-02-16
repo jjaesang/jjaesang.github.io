@@ -22,8 +22,7 @@ Flink 1.10.0부터 TaskManager Memory 설정을 fine-grained하게 설정하도�
 
 그래서.. 먼저 Flink TaskManager의 메모리 구조를 보고, 어떻게 메모리 설정하도록 바뀌었는지 알아보고자함
 
-<img width="359" alt="image" src="https://user-images.githubusercontent.com/12586821/74604722-e2cc1a00-5103-11ea-9cb0-092319eeba36.png">
-
+<img src="https://user-images.githubusercontent.com/12586821/74604722-e2cc1a00-5103-11ea-9cb0-092319eeba36.png" width="250" height="400">
 
 복잡하지만 크게 보면 2가지로 나눠져있음
  - **Total Process Memory**
@@ -93,7 +92,7 @@ Flink 1.10.0부터 TaskManager Memory 설정을 fine-grained하게 설정하도�
 #### 3-2. taskmanager.memory.managed.size 
 - Managed Memory size for TaskExecutors.
 - Memory Manger에 의해 관리되는 Off-heap memory 
-- sorting, hash tables, caching of intermediate results and RocksDB state backend에 사용되는 메모리 구긴
+- sorting, hash tables, caching of intermediate results and RocksDB state backend에 사용되는 메모리 영역
 - 설정안할시 taskmanager.memory.flink.size값에서 taskmanager.memory.managed.fraction (default 0.4)
 
 
@@ -110,7 +109,7 @@ Flink 1.10.0부터 TaskManager Memory 설정을 fine-grained하게 설정하도�
 ### State Backends에 따른 메모리 설정 
 
 1. Heap state backend
-- running a stateless job 이거나 heap state backend (MemoryStateBackend or FsStateBackend을 사용시, Managed memory는 0으로 설정)
+- Stateless job 이거나 heap state backend (MemoryStateBackend or FsStateBackend)을 사용시, Managed memory는 0으로 설정)
  
  
 2. RocksDB state backend
