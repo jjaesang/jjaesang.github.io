@@ -22,7 +22,7 @@ Flink 1.10.0부터 TaskManager Memory 설정을 fine-grained하게 설정하도�
 
 그래서.. 먼저 Flink TaskManager의 메모리 구조를 보고, 어떻게 메모리 설정하도록 바뀌었는지 알아보고자함
 
-<img src="https://user-images.githubusercontent.com/12586821/74604722-e2cc1a00-5103-11ea-9cb0-092319eeba36.png" width="250" height="600">
+<img src="https://user-images.githubusercontent.com/12586821/74604722-e2cc1a00-5103-11ea-9cb0-092319eeba36.png" width="250" height="800">
 
 복잡하지만 크게 보면 2가지로 나눠져있음
  - **Total Process Memory**
