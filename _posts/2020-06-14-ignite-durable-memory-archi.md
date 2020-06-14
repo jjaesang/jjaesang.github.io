@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Ignite Architecture deep dive"
+title:  "[Ignite] Durable Memory Architecture"
 date: 2020-06-14 21:05:12
 categories: Ignite
 author : Jaesang Lim

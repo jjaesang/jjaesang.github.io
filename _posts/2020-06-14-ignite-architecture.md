@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Ignite Architecture deep dive"
+title:  "[Ignite] Architecture deep dive Intro"
 date: 2020-06-14 17:05:12
 categories: Ignite
 author : Jaesang Lim
